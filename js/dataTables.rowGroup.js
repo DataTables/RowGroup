@@ -66,7 +66,9 @@ var RowGroup = function ( dt, opts ) {
 
 	// Internal settings
 	this.s = {
-		
+		dt: new DataTable.Api( dt ),
+
+		dataFn: DataTable.ext.oApi._fnGetObjectDataFn( this.c.dataSrc ),
 	};
 
 	// DOM items
@@ -91,6 +93,51 @@ $.extend( RowGroup.prototype, {
 	 * API methods for DataTables API interface
 	 */
 
+
+	_constructor: function ()
+	{
+		var that = this;
+		var dt = this.s.dt;
+
+		dt.on( 'draw.dtrg', function () {
+			if ( that.c.enable ) {
+				that._draw();
+			}
+		} );
+
+		dt.on( 'destroy', function () {
+			dt.off( '.dtrg' );
+		} );
+	},
+
+	_draw: function ()
+	{
+		var that = this;
+		var dt = this.s.dt;
+		var rows = dt.rows( { page: 'current' } );
+		var groupedRows = [];
+		var last;
+
+		rows.every( function () {
+			var d = this.data();
+			var group = that.s.dataFn( d );
+
+			if ( last === undefined || group !== last ) {
+				groupedRows.push( [] );
+				last = group;
+			}
+			
+			groupedRows[ groupedRows.length - 1 ].push( this );
+		} );
+
+		for ( var i=0, ien=groupedRows.length ; i<ien ; i++ ) {
+			var group = groupedRows[i];
+
+			// render
+
+			// insert pre or post
+		}
+	}
 } );
 
 
@@ -103,6 +150,8 @@ $.extend( RowGroup.prototype, {
  */
 RowGroup.defaults = {
 	dataSrc: 0,
+
+	render: null,
 
 	enable: true,
 
