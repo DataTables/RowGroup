@@ -92,6 +92,33 @@ $.extend( RowGroup.prototype, {
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * API methods for DataTables API interface
 	 */
+	dataSrc: function ( val )
+	{
+		if ( val === undefined ) {
+			return this.c.dataSrc;
+		}
+
+		this.c.dataSrc = val;
+		this.s.dataFn = DataTable.ext.oApi._fnGetObjectDataFn( this.c.dataSrc );
+
+		return this;
+	},
+
+	disable: function ()
+	{
+		this.c.enable = false;
+		return this;
+	},
+
+	enable: function ( flag )
+	{
+		if ( flag === false ) {
+			return this.disable();
+		}
+
+		this.c.enable = true;
+		return this;
+	},
 
 
 	_constructor: function ()
@@ -116,7 +143,7 @@ $.extend( RowGroup.prototype, {
 		var dt = this.s.dt;
 		var rows = dt.rows( { page: 'current' } );
 		var groupedRows = [];
-		var last;
+		var last, display;
 
 		rows.every( function () {
 			var d = this.data();
@@ -132,11 +159,49 @@ $.extend( RowGroup.prototype, {
 
 		for ( var i=0, ien=groupedRows.length ; i<ien ; i++ ) {
 			var group = groupedRows[i];
+			var groupName = this.s.dataFn( group[0].data() );
 
-			// render
+			if ( this.c.startRender ) {
+				display = this.c.startRender.call( this, new DataTable.Api( dt, group ), groupName );
+				
+				this
+					._rowWrap( display, this.c.startClassName )
+					.insertBefore( group[0].node() );
+			}
 
-			// insert pre or post
+			if ( this.c.endRender ) {
+				display = this.c.endRender.call( this, new DataTable.Api( dt, group ), groupName );
+				
+				this
+					._rowWrap( display, this.c.endClassName )
+					.insertAfter( group[ group.length-1 ].node() );
+			}
 		}
+	},
+
+
+	_rowWrap: function ( display, className )
+	{
+		var row;
+		
+		if ( typeof display === 'object' && display.nodeName.toLowerCase() === 'tr') {
+			row = $(display);
+		}
+		else if (display instanceof $ && display.length && display[0].nodeName.toLowerCase === 'tr') {
+			row = display;
+		}
+		else {
+			row = $('<tr/>')
+				.append(
+					$('<td/>')
+						.attr( 'colspan', $( this.s.dt.columns().header() ).filter(':visible').length )
+						.append( display  )
+				);
+		}
+
+		return row
+			.addClass( this.c.className )
+			.addClass( className );
 	}
 } );
 
@@ -149,9 +214,17 @@ $.extend( RowGroup.prototype, {
  * @static
  */
 RowGroup.defaults = {
+	className: 'group',
+	startClassName: 'group-start',
+	endClassName: 'group-end',
+
 	dataSrc: 0,
 
-	render: null,
+	startRender: function ( rows, group ) {
+		return group;
+	},
+
+	endRender: null,
 
 	enable: true,
 
@@ -165,6 +238,10 @@ RowGroup.version = "1.0.0-dev";
 $.fn.dataTable.RowGroup = RowGroup;
 $.fn.DataTable.RowGroup = RowGroup;
 
+
+DataTable.Api.register( 'rowGroup()', function () {
+	return this;
+} );
 
 DataTable.Api.register( 'rowGroup().disable()', function () {
 	return this.iterator( 'table', function (ctx) {
@@ -181,6 +258,15 @@ DataTable.Api.register( 'rowGroup().enable()', function ( opts ) {
 		}
 	} );
 } );
+
+DataTable.Api.register( 'rowGroup().dataSrc()', function ( val ) {
+	return this.iterator( 'table', function (ctx) {
+		if ( ctx.rowGroup ) {
+			ctx.rowGroup.dataSrc( val );
+		}
+	} );
+} );
+
 
 // Attach a listener to the document which listens for DataTables initialisation
 // events so we can automatically initialise
