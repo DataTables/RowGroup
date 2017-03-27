@@ -8,7 +8,7 @@
  * @version     1.0.0-dev
  * @file        dataTables.rowGroup.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
- * @contact     www.sprymedia.co.uk/contact
+ * @contact     datatables.net
  * @copyright   Copyright 2017 SpryMedia Ltd.
  *
  * This source file is free software, available under the following license:
@@ -92,6 +92,12 @@ $.extend( RowGroup.prototype, {
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * API methods for DataTables API interface
 	 */
+
+	/**
+	 * Get/set the grouping data source - need to call draw after this is
+	 * executed as a setter
+	 * @returns string~RowGroup
+	 */
 	dataSrc: function ( val )
 	{
 		if ( val === undefined ) {
@@ -104,12 +110,20 @@ $.extend( RowGroup.prototype, {
 		return this;
 	},
 
+	/**
+	 * Disable - need to call draw after this is executed
+	 * @returns RowGroup
+	 */
 	disable: function ()
 	{
 		this.c.enable = false;
 		return this;
 	},
 
+	/**
+	 * Enable - need to call draw after this is executed
+	 * @returns RowGroup
+	 */
 	enable: function ( flag )
 	{
 		if ( flag === false ) {
@@ -121,6 +135,9 @@ $.extend( RowGroup.prototype, {
 	},
 
 
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 * Constructor
+	 */
 	_constructor: function ()
 	{
 		var that = this;
@@ -137,6 +154,15 @@ $.extend( RowGroup.prototype, {
 		} );
 	},
 
+
+	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	 * Private methods
+	 */
+
+	/**
+	 * Update function that is called whenever we need to draw the grouping rows
+	 * @private
+	 */
 	_draw: function ()
 	{
 		var that = this;
@@ -179,7 +205,13 @@ $.extend( RowGroup.prototype, {
 		}
 	},
 
-
+	/**
+	 * Take a rendered value from an end user and make it suitable for display
+	 * as a row, by wrapping it in a row, or detecting that it is a row.
+	 * @param [node|jQuery|string] display Display value
+	 * @param [string] className Class to add to the row
+	 * @private
+	 */
 	_rowWrap: function ( display, className )
 	{
 		var row;
@@ -214,21 +246,50 @@ $.extend( RowGroup.prototype, {
  * @static
  */
 RowGroup.defaults = {
+	/**
+	 * Class to apply to grouping rows - applied to both the start and
+	 * end grouping rows.
+	 * @type string
+	 */
 	className: 'group',
-	startClassName: 'group-start',
-	endClassName: 'group-end',
 
+	/**
+	 * Data property from which to read the grouping information
+	 * @type string|integer
+	 */
 	dataSrc: 0,
 
-	startRender: function ( rows, group ) {
-		return group;
-	},
-
-	endRender: null,
-
+	/**
+	 * Initial enablement state
+	 * @boolean
+	 */
 	enable: true,
 
-	position: 'start' // end
+	/**
+	 * Class name to give to the end grouping row
+	 * @type string
+	 */
+	endClassName: 'group-end',
+
+	/**
+	 * End grouping label function
+	 * @function
+	 */
+	endRender: null,
+
+	/**
+	 * Class name to give to the start grouping row
+	 * @type string
+	 */
+	startClassName: 'group-start',
+
+	/**
+	 * Start grouping label function
+	 * @function
+	 */
+	startRender: function ( rows, group ) {
+		return group;
+	}
 };
 
 
