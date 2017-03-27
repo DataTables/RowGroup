@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="3">
+
+<css lib="datatables rowgroup">
+table.dataTable tr.group-end td {
+	text-align: right;
+	font-weight: normal;
+}
+</css>
+<js lib="jquery datatables rowgroup">
+<![CDATA[
+
+$(document).ready(function() {
+	$('#example').DataTable( {
+		order: [[2, 'asc']],
+		rowGroup: {
+			endRender: function ( rows, group ) {
+				var avg = rows
+					.data()
+					.pluck(5)
+					.reduce( function (a, b) {
+						return a + b.replace(/[^\d]/g, '')*1;
+					}, 0) / rows.count();
+
+				return 'Average salary in '+group+': '+
+					$.fn.dataTable.render.number(',', '.', 0, '$').display( avg );
+			},
+			dataSrc: 2
+		}
+	} );
+} );
+
+]]>
+</js>
+
+<title lib="RowGroup">Start and end grouping</title>
+
+<info><![CDATA[
+
+
+]]></info>
+
+</dt-example>
+

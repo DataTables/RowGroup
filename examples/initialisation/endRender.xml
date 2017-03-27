@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="2">
+
+<css lib="datatables rowgroup"/>
+<js lib="jquery datatables rowgroup">
+<![CDATA[
+
+$(document).ready(function() {
+	$('#example').DataTable( {
+		order: [[2, 'asc']],
+		rowGroup: {
+			startRender: null,
+			endRender: function ( rows, group ) {
+				return group;
+			},
+			dataSrc: 2
+		}
+	} );
+} );
+
+]]>
+</js>
+
+<title lib="RowGroup">End grouping display only</title>
+
+<info><![CDATA[
+
+
+]]></info>
+
+</dt-example>
+

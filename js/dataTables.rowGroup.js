@@ -203,27 +203,28 @@ $.extend( RowGroup.prototype, {
 				last = group;
 			}
 			
-			groupedRows[ groupedRows.length - 1 ].push( this );
+			groupedRows[ groupedRows.length - 1 ].push( this.index() );
 		} );
 
 		for ( var i=0, ien=groupedRows.length ; i<ien ; i++ ) {
 			var group = groupedRows[i];
-			var groupName = this.s.dataFn( group[0].data() );
+			var firstRow = dt.row(group[0]);
+			var groupName = this.s.dataFn( firstRow.data() );
 
 			if ( this.c.startRender ) {
-				display = this.c.startRender.call( this, new DataTable.Api( dt, group ), groupName );
+				display = this.c.startRender.call( this, dt.rows(group), groupName );
 				
 				this
 					._rowWrap( display, this.c.startClassName )
-					.insertBefore( group[0].node() );
+					.insertBefore( firstRow.node() );
 			}
 
 			if ( this.c.endRender ) {
-				display = this.c.endRender.call( this, new DataTable.Api( dt, group ), groupName );
+				display = this.c.endRender.call( this, dt.rows(group), groupName );
 				
 				this
 					._rowWrap( display, this.c.endClassName )
-					.insertAfter( group[ group.length-1 ].node() );
+					.insertAfter( dt.row( group[ group.length-1 ] ).node() );
 			}
 		}
 	},
