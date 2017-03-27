@@ -149,6 +149,10 @@ $.extend( RowGroup.prototype, {
 			}
 		} );
 
+		dt.on( 'column-visibility.dtrg', function () {
+			that._adjustColspan();
+		} );
+
 		dt.on( 'destroy', function () {
 			dt.off( '.dtrg' );
 		} );
@@ -158,6 +162,25 @@ $.extend( RowGroup.prototype, {
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * Private methods
 	 */
+
+	/**
+	 * Adjust column span when column visibility changes
+	 * @private
+	 */
+	_adjustColspan: function ()
+	{
+		$( 'tr.'+this.c.className, this.s.dt.table().body() )
+			.attr( 'colspan', this._colspan() );
+	},
+
+	/**
+	 * Get the number of columns that a grouping row should span
+	 * @private
+	 */
+	_colspan: function ()
+	{
+		return $( this.s.dt.columns().header() ).filter(':visible').length;
+	},
 
 	/**
 	 * Update function that is called whenever we need to draw the grouping rows
@@ -226,7 +249,7 @@ $.extend( RowGroup.prototype, {
 			row = $('<tr/>')
 				.append(
 					$('<td/>')
-						.attr( 'colspan', $( this.s.dt.columns().header() ).filter(':visible').length )
+						.attr( 'colspan', this._colspan() )
 						.append( display  )
 				);
 		}
