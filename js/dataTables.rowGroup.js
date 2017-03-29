@@ -345,6 +345,10 @@ DataTable.Api.register( 'rowGroup().enable()', function ( opts ) {
 } );
 
 DataTable.Api.register( 'rowGroup().dataSrc()', function ( val ) {
+	if ( val === undefined ) {
+		return this.context[0].rowGroup.dataSrc();
+	}
+
 	return this.iterator( 'table', function (ctx) {
 		if ( ctx.rowGroup ) {
 			ctx.rowGroup.dataSrc( val );
