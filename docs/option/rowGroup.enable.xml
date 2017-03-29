@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option library="RowGroup">
+	<name>rowGroup.enable</name>
+	<summary>Provides the ability to disable row grouping at initialisation</summary>
+	<since>RowGroup 1.0.0</since>
+
+	<type type="boolean">
+		<description>
+			As a boolean value this property will control whether RowGroup is enabled or disabled for a DataTable.
+		</description>
+	</type>
+
+	<default value="true">
+		RowGroup will be initialised if the `-init rowGroup` property is specified in the table initialisation.
+	</default>
+
+	<description>
+		When using RowGroup you are most likely to set up an initial grouping configuration for the end user (using the `-init rowGroup.dataSrc`) option. But if you wish to provide the option to have the table initially ungrouped and let the user select the group (`-api rowGroup().dataSrc()`) this option provides that ability.
+	</description>
+
+	<example title="Disable row grouping during initialisation"><![CDATA[
+
+$('#myTable').DataTable( {
+	rowGroup: {
+		enable: false
+	}
+} );
+
+]]></example>
+
+</dt-option>

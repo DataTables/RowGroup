@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option library="RowGroup">
+	<name>rowGroup.dataSrc</name>
+	<summary>Set the data point to use as the grouping data source</summary>
+	<since>RowGroup 1.0.0</since>
+
+	<type type="number|string">
+		<description>
+			If your table is using array based data, this should be the column index that contains the data you want to use to group the table. For object based data sourced, it should be the property name in the data source object.
+		</description>
+	</type>
+
+	<default value="0"/>
+
+	<description>
+		When using RowGroup you are _very_ likely to wish to set this parameter as it provides the software with the information needed to find the data by which to group the rows in the table.
+		
+		It is important to note that if you are using objects as a data source for the table, this property should be set to a string (the value being the property name for the grouping data), while if you are using arrays, it should be an index matching the column index for the grouping data.
+
+		When using objects it is not required that the data used for grouping be used in a column (unless you wish to be able to order the table by that data as well).
+
+		The data source for grouping can be dynamically altered using the `-api rowGroup().dataSrc()` method, after the table has been initialised.
+	</description>
+
+	<example title="Set an object property name as the data source for grouping information"><![CDATA[
+
+$('#myTable').DataTable( {
+	rowGroup: {
+		dataSrc: 'group'
+	}
+} );
+
+]]></example>
+
+</dt-option>

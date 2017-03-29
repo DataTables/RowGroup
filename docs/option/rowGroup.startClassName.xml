@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option library="RowGroup">
+	<name>rowGroup.startClassName</name>
+	<summary>Set the class name to be used for the grouping start rows</summary>
+	<since>RowGroup 1.0.0</since>
+
+	<type type="string">
+		<description>
+			The class name that will be applied to the grouping start rows, allowing them to be styled in the table.
+		</description>
+	</type>
+
+	<default value="group-start"/>
+
+	<description>
+		When styling a grouped table, you will likely wish to visually distingush between the start and end grouping rows (if you are using both), applying different styles to each. This parameter provides the ability to customise the class name that is assigned to the grouping start rows.
+
+		Note that this class is assigned in addition to the `-init rowGroup.className` property, which can be used to provide common styling to both the start and end rows.
+	</description>
+
+	<example title="Set a custom class name"><![CDATA[
+
+$('#myTable').DataTable( {
+	rowGroup: {
+		startClassName: 'table-start-group'
+	}
+} );
+
+]]></example>
+
+</dt-option>

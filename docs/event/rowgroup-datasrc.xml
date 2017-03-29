@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-event library="RowGroup">
+	<name>rowgroup-datasrc</name>
+	<summary>Grouping data property has been changed</summary>
+	<since>1.0.0</since>
+
+	<type type="function">
+		<signature>function( e, datatable, prop )</signature>
+		<parameter type="object" name="e">
+			jQuery event object
+		</parameter>
+		<parameter type="DataTables.Api" name="datatable">
+			DataTable API instance for the table in question
+		</parameter>
+		<parameter type="number|string" name="prop">
+			The new data property
+		</parameter>
+		<scope>HTML table element</scope>
+	</type>
+
+	<description>
+		The ability to change the data point that is used to group a table can be quite useful, allowing the end user to easily group data in different ways, but when that happens you might often which to update the table's settings in some ways - the most typical being using ordering in the table to reflect the new grouping.
+
+		This event is triggered whenever the data source for the grouping is modified, providing you with that ability to modify the table's settings.
+	</description>
+
+	<example title="Change the fixed ordering when the data source is updated"><![CDATA[
+
+table.on( 'rowgroup-datasrc', function ( e, dt, val ) {
+	table.order.fixed( {pre: [[ val, 'asc' ]]} ).draw();
+} );
+
+]]></example>
+
+	<related>-init rowGroup.dataSrc</related>
+	<related>-api rowGroup().dataSrc()</related>
+</dt-event>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option library="RowGroup">
+	<name>rowGroup.startRender</name>
+	<summary>Provide a function that can be used to control the data shown in the start grouping row.</summary>
+	<since>RowGroup 1.0.0</since>
+
+	<type type="null">
+		<description>
+			If given as `null` the grouping start row is not shown in the table.
+		</description>
+	</type>
+
+	<type type="function">
+		<signature>startRender( rows, group )</signature>
+		<parameter type="DataTables.Api" name="rows">
+			A DataTables API instance resulting from `-api rows()` on the rows in this group.
+		</parameter>
+		<parameter type="string" name="group">
+			The value of the group's data point (defined by `-init rowGroup.dataSrc`).
+		</parameter>
+		<returns type="string|node|jQuery">
+
+		</returns>
+		<scope>HTML table element</scope>
+	</type>
+
+	<default value="function (rows, data) { return data; }">
+		The default function simply shows the grouping data point's value.
+	</default>
+
+	<description>
+		
+	</description>
+
+	<example title="Show the number of rows in the "><![CDATA[
+
+$('#myTable').DataTable( {
+	rowGroup: {
+		startRender: function ( rows, group ) {
+			return group +' ('+rows.count()+' rows)';
+		}
+	}
+} );
+
+]]></example>
+
+</dt-option>

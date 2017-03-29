@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api library="RowGroup">
+	<name>rowGroup().disable()</name>
+	<summary>Disable RowGroup's interaction with the table</summary>
+	<since>1.0.0</since>
+
+	<type type="function">
+	<name>rowGroup().disable()</name>
+		<signature>rowGroup().disable()</signature>
+		<description>
+			Disable the the RowGrouping feature of the DataTable.
+		</description>
+		<returns type="DataTables.Api">DataTables API instance</returns>
+	</type>
+
+	<description>
+		This method can be used to dyanmically disable the row grouping feature offered by the RowGroup extension for DataTables. This can be useful for cases where you want the end user to be able to toggle grouping, and optionally to switch between the grouping used for the table.
+		
+		Please note that the visual effect for grouping being disabled is not shown until the DataTable is redrawn. This would typically be done by immediately calling the `-api draw()` method.
+	</description>
+
+	<example title="Disable row grouping"><![CDATA[
+
+var table = $('#example').DataTable( {
+	rowGroup: true
+} );
+
+table.rowGroup().disable().draw();
+
+]]></example>
+
+	<related>-init rowGroup.enable</related>
+	<related>-api rowGroup().enable()</related>
+</dt-api>
