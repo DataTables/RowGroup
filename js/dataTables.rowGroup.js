@@ -104,8 +104,12 @@ $.extend( RowGroup.prototype, {
 			return this.c.dataSrc;
 		}
 
+		var dt = this.s.dt;
+
 		this.c.dataSrc = val;
 		this.s.dataFn = DataTable.ext.oApi._fnGetObjectDataFn( this.c.dataSrc );
+
+		$(dt.table().node()).triggerHandler( 'rowgroup-datasrc.dt', [ dt, val ] );
 
 		return this;
 	},

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="1">
+
+<css lib="datatables rowgroup"/>
+<js lib="jquery datatables rowgroup">
+<![CDATA[
+
+$(document).ready(function() {
+	var table = $('#example').DataTable( {
+		orderFixed: [[2, 'asc']],
+		rowGroup: {
+			dataSrc: 2
+		}
+	} );
+
+	// Change the fixed ordering when the data source is updated
+	table.on( 'rowgroup-datasrc', function ( e, dt, val ) {
+		table.order.fixed( {pre: [[ val, 'asc' ]]} ).draw();
+	} );
+
+	$('a.group-by').on( 'click', function (e) {
+		e.preventDefault();
+
+		table.rowGroup().dataSrc( $(this).data('column') );
+	} );
+} );
+
+]]>
+</js>
+
+<title lib="RowGroup">Data source change event</title>
+
+<info><![CDATA[
+
+This example demonstrates the use of the `-event rowgroup-datasrc` event which is triggered whenever the grouping data source is changed (through the `-api rowGroup().dataSrc()` method). Three links are provided which will change the grouping data source, and the `-event rowgroup-datasrc` event is then used to change the table's fixed ordering (`-api order.fixed()`) to reflect that change.
+
+]]></info>
+
+<demo-html>
+	<ul>
+		<li><a class="group-by" data-column="1">Group by Position</a></li>
+		<li><a class="group-by" data-column="2">Group by Office</a></li>
+		<li><a class="group-by" data-column="3">Group by Age</a></li>
+	</ul>
+</demo-html>
+
+</dt-example>
+
