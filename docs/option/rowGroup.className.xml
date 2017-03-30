@@ -13,7 +13,7 @@
 	<default value="group"/>
 
 	<description>
-		When using RowGroup it is important that your end users be able to distingush between the regular rows in the table and the grouping rows. This is typically done with CSS and this property provides the ability to customise the class that RowGroup assigns to each grouping row.
+		When using RowGroup it is important that your end users be able to distinguish between the regular rows in the table and the grouping rows. This is typically done with CSS and this property provides the ability to customise the class that RowGroup assigns to each grouping row.
 
 		Note that this class is assigned to both start and end rows.
 	</description>

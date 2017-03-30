@@ -13,7 +13,7 @@
 	<default value="group-end"/>
 
 	<description>
-		When styling a grouped table, you will likely wish to visually distingush between the end and end grouping rows (if you are using both), applying different styles to each. This parameter provides the ability to customise the class name that is assigned to the grouping end rows.
+		When styling a grouped table, you will likely wish to visually distinguish between the end and end grouping rows (if you are using both), applying different styles to each. This parameter provides the ability to customise the class name that is assigned to the grouping end rows.
 
 		Note that this class is assigned in addition to the `-init rowGroup.className` property, which can be used to provide common styling to both the end and end rows.
 	</description>

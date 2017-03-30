@@ -15,7 +15,7 @@
 	</default>
 
 	<description>
-		When using RowGroup you are most likely to set up an initial grouping configuration for the end user (using the `-init rowGroup.dataSrc`) option. But if you wish to provide the option to have the table initially ungrouped and let the user select the group (`-api rowGroup().dataSrc()`) this option provides that ability.
+		When using RowGroup you are most likely to set up an initial grouping configuration for the end user (using the `-init rowGroup.dataSrc`) option. But if you wish to provide the option to have the table initially un-grouped and let the user select the group (`-api rowGroup().dataSrc()`) this option provides that ability.
 	</description>
 
 	<example title="Disable row grouping during initialisation"><![CDATA[

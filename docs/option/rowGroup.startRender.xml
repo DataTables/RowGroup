@@ -23,7 +23,7 @@
 
 			* A string, in which case RowGroup will create `-tag tr` and `-tag td` elements for the grouping row, with a `colspan` value to have the single cell spanning the width of the table.
 			* A `-tag tr` node which contains a row that will be injected into the table as the group start row. This is useful if you wish to use multiple cells in the grouping row - e.g. to provide alignment with the host data.
-			* A jQuery object containing a `-tag tr` node. This acts in exactly the same way as a `-tag tr` element and is provided for convience.
+			* A jQuery object containing a `-tag tr` node. This acts in exactly the same way as a `-tag tr` element and is provided for convenience.
 		</returns>
 		<scope>HTML table element</scope>
 	</type>
@@ -35,7 +35,7 @@
 	<description>
 		It can be really useful to modify the contents of the grouping row that is displayed by RowGroup. By default it simply shows the grouping data value, but often you might wish to show more complex data, such as aggregations, counts and other summary information. This option provides that ability by letting you specify a function that with return the data to be shown for the group's starting row.
 
-		The function defined by this option will be called once for every group shown in the DataTables' current page, and will be called again every time the page is changed (e.g. paging, search or sort) to keep the grouping information current. As such it is important that the function used should be relatively fast in its execution - e.g. do not make any asyncrhous Ajax calls!
+		The function defined by this option will be called once for every group shown in the DataTables' current page, and will be called again every time the page is changed (e.g. paging, search or sort) to keep the grouping information current. As such it is important that the function used should be relatively fast in its execution - e.g. do not make any asynchronous Ajax calls!
 	</description>
 
 	<example title="Show the number of rows in the group along with the group data value"><![CDATA[

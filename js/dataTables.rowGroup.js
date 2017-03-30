@@ -78,9 +78,9 @@ var RowGroup = function ( dt, opts ) {
 
 	// Check if row grouping has already been initialised on this table
 	var settings = this.s.dt.settings()[0];
-	var exisiting = settings.rowGroup;
-	if ( exisiting ) {
-		return exisiting;
+	var existing = settings.rowGroup;
+	if ( existing ) {
+		return existing;
 	}
 
 	settings.rowGroup = this;

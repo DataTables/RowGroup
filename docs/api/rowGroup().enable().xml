@@ -20,7 +20,7 @@
 	</type>
 
 	<description>
-		This method can be used to dyanmically enable the row grouping feature offered by the RowGroup extension for DataTables, and also optionally to disable it using a toggle flag. This can be useful for cases where you want the end user to be able to toggle grouping, and optionally to switch between the grouping used for the table.
+		This method can be used to dynamically enable the row grouping feature offered by the RowGroup extension for DataTables, and also optionally to disable it using a toggle flag. This can be useful for cases where you want the end user to be able to toggle grouping, and optionally to switch between the grouping used for the table.
 		
 		Please note that the visual effect for grouping being either enabled or disabled is not shown until the DataTable is redrawn. This would typically be done by immediately calling the `-api draw()` method.
 	</description>
