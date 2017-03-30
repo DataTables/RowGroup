@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="3">
+
+<css lib="datatables rowgroup"/>
+<js lib="jquery datatables rowgroup">
+<![CDATA[
+
+$(document).ready(function() {
+	$('#example').DataTable( {
+		order: [[2, 'asc']],
+		rowGroup: {
+			startRender: null,
+			endRender: function ( rows, group ) {
+				var salaryAvg = rows
+					.data()
+					.pluck(5)
+					.reduce( function (a, b) {
+						return a + b.replace(/[^\d]/g, '')*1;
+					}, 0) / rows.count();
+				salaryAvg = $.fn.dataTable.render.number(',', '.', 0, '$').display( salaryAvg );
+
+				var ageAvg = rows
+					.data()
+					.pluck(3)
+					.reduce( function (a, b) {
+						return a + b*1;
+					}, 0) / rows.count();
+
+				return $('<tr/>')
+					.append( '<td colspan="3">Averages for '+group+'</td>' )
+					.append( '<td>'+ageAvg.toFixed(0)+'</td>' )
+					.append( '<td/>' )
+					.append( '<td>'+salaryAvg+'</td>' );
+			},
+			dataSrc: 2
+		}
+	} );
+} );
+
+]]>
+</js>
+
+<title lib="RowGroup">Custom row rendering / aggregates</title>
+
+<info><![CDATA[
+
+
+]]></info>
+
+</dt-example>
+

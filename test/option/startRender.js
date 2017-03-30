@@ -82,4 +82,40 @@ describe( 'Start render', function() {
 		expect( a2[0] ).toBe( 'Edinburgh' );
 		expect( a2[1] ).toBe( 'London' );
 	} );
+
+	dt.html( 'basic' );
+
+	it( 'Can return a jQuery object', function () {
+		var args;
+
+		table = $('#example').DataTable( {
+			order: [[2, 'asc']],
+			rowGroup: {
+				dataSrc: 2,
+				startRender: function ( rows, group ) {
+					return $('<tr><td>Test jQuery</td></tr>');
+				}
+			}	
+		} );
+
+		expect( $('#example tbody tr:eq(0)').text() ).toBe( 'Test jQuery' );
+	} );
+
+	dt.html( 'basic' );
+
+	it( 'Can return a node', function () {
+		var args;
+
+		table = $('#example').DataTable( {
+			order: [[2, 'asc']],
+			rowGroup: {
+				dataSrc: 2,
+				startRender: function ( rows, group ) {
+					return $('<tr><td>Test node</td></tr>')[0];
+				}
+			}	
+		} );
+
+		expect( $('#example tbody tr:eq(0)').text() ).toBe( 'Test node' );
+	} );
 } );

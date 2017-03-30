@@ -244,10 +244,10 @@ $.extend( RowGroup.prototype, {
 	{
 		var row;
 		
-		if ( typeof display === 'object' && display.nodeName.toLowerCase() === 'tr') {
+		if ( typeof display === 'object' && display.nodeName && display.nodeName.toLowerCase() === 'tr') {
 			row = $(display);
 		}
-		else if (display instanceof $ && display.length && display[0].nodeName.toLowerCase === 'tr') {
+		else if (display instanceof $ && display.length && display[0].nodeName.toLowerCase() === 'tr') {
 			row = display;
 		}
 		else {
