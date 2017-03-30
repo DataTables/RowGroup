@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <dt-option library="RowGroup">
-	<name>rowGroup.startRender</name>
-	<summary>Provide a function that can be used to control the data shown in the start grouping row.</summary>
+	<name>rowGroup.endRender</name>
+	<summary>Provide a function that can be used to control the data shown in the end grouping row.</summary>
 	<since>RowGroup 1.0.0</since>
 
 	<type type="null">
 		<description>
-			If given as `null` the grouping start row is not shown in the table.
+			If given as `null` the grouping end row is not shown in the table.
 		</description>
 	</type>
 
 	<type type="function">
-		<signature>startRender( rows, group )</signature>
+		<signature>endRender( rows, group )</signature>
 		<parameter type="DataTables.Api" name="rows">
 			A DataTables API instance resulting from `-api rows()` on the rows in this group.
 		</parameter>
@@ -22,14 +22,14 @@
 			The information returned by the rendering function may be one of:
 
 			* A string, in which case RowGroup will create `-tag tr` and `-tag td` elements for the grouping row, with a `colspan` value to have the single cell spanning the width of the table.
-			* A `-tag tr` node which contains a row that will be injected into the table as the group start row. This is useful if you wish to use multiple cells in the grouping row - e.g. to provide alignment with the host data.
+			* A `-tag tr` node which contains a row that will be injected into the table as the group end row. This is useful if you wish to use multiple cells in the grouping row - e.g. to provide alignment with the host data.
 			* A jQuery object containing a `-tag tr` node. This acts in exactly the same way as a `-tag tr` element and is provided for convience.
 		</returns>
 		<scope>HTML table element</scope>
 	</type>
 
-	<default value="function (rows, data) { return data; }">
-		The default function simply shows the grouping data point's value.
+	<default value="null">
+		A grouping end row is _not_ shown.
 	</default>
 
 	<description>
@@ -42,8 +42,41 @@
 
 $('#myTable').DataTable( {
 	rowGroup: {
-		startRender: function ( rows, group ) {
+		endRender: function ( rows, group ) {
 			return group +' ('+rows.count()+' rows)';
+		}
+	}
+} );
+
+]]></example>
+
+	<example title="Disable the start grouping row"><![CDATA[
+
+$('#myTable').DataTable( {
+	rowGroup: {
+		startRender: null,
+		endRender: function ( rows, group ) {
+			return group +' ('+rows.count()+' rows)';
+		}
+	}
+} );
+
+]]></example>
+
+	<example title="Show aggregate data in the footer"><![CDATA[
+
+$('#myTable').DataTable( {
+	rowGroup: {
+		endRender: function ( rows, group ) {
+			var avg = rows
+				.data()
+				.pluck('salary')
+				.reduce( function (a, b) {
+					return a + b.replace(/[^\d]/g, '')*1;
+				}, 0) / rows.count();
+
+			return 'Average salary in '+group+': '+
+				$.fn.dataTable.render.number(',', '.', 0, '$').display( avg );
 		}
 	}
 } );
