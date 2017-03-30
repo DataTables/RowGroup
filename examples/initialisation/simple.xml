@@ -21,6 +21,9 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
+The RowGroup extension for DataTables provides an easy to use row grouping feature for DataTables (the clue is in the name!). It can be configured via the `-init rowGroup` parameter and you will almost always wish to use the `-init rowGroup.dataSrc` option to tell the software what data point in the table's source data to use to get the grouping information.
+
+In this example the _Office_ column (column index 2) is used.
 
 ]]></info>
 

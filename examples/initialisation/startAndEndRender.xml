@@ -37,6 +37,9 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
+It can often be useful to use grouping rows both at the start and the end of a group, each providing different summary information about the group. RowGroup provides two rendering options - `-init rowGroup.startRender` and `-init rowGroup.endRender` - as the naming implies, one for the group start and one for the group end, allowing them to be configured independently.
+
+This example shows the `-init rowGroup.startRender` left with its default state, while the `-init rowGroup.endRender` shows a summary of the information in the group - in this case an average salary.
 
 ]]></info>
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" order="3">
+<dt-example table-type="ajax" order="5">
 
 <css lib="datatables rowgroup"/>
 <js lib="jquery datatables rowgroup">
@@ -30,6 +30,9 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
+The majority of the RowGroup examples make use of an array data source since they are reading data from an HTML table. However, it is quite possible to make use of objects as well, and in fact this often makes the most sense when using row grouping, since it is easy to identify the data point to use for grouping.
+
+This example demonstrates Ajax loading of object based data for the table, with the `-init rowGroup.dataSrc` option used to group by the _Office_ column.
 
 ]]></info>
 

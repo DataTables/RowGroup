@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<dt-example table-type="html" order="1" framework="jqueryui">
+<dt-example table-type="html" order="5" framework="jqueryui">
 
 <css lib="datatables rowgroup"/>
 <js lib="jquery datatables rowgroup">
@@ -21,6 +21,7 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
+This example shows DataTables and RowGroup being used with [jQuery UI](http://jqueryui.com/) providing the base styling information. The [DataTables / jQuery UI integration](//datatables.net/manual/styling/foundation) prove seamless integration for DataTables to be used in a jQuery UI page.
 
 ]]></info>
 
