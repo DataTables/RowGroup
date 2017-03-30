@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="1" framework="bootstrap">
+
+<css lib="datatables rowgroup"/>
+<js lib="jquery datatables rowgroup">
+<![CDATA[
+
+$(document).ready(function() {
+	$('#example').DataTable( {
+		order: [[2, 'asc']],
+		rowGroup: {
+			dataSrc: 2
+		}
+	} );
+} );
+
+]]>
+</js>
+
+<title lib="RowGroup">Bootstrap 3</title>
+
+<info><![CDATA[
+
+
+]]></info>
+
+</dt-example>
+
