@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" table-class="display nowrap" order="8">
+
+<css lib="datatables responsive rowgroup"/>
+<js lib="jquery datatables responsive rowgroup">
+<![CDATA[
+
+$(document).ready(function() {
+	$('#example').DataTable( {
+		responsive: true,
+		order: [[2, 'asc']],
+		rowGroup: {
+			dataSrc: 2
+		}
+	} );
+} );
+
+]]>
+</js>
+
+<title lib="RowGroup">Integration with Responsive</title>
+
+<info><![CDATA[
+
+This example shows RowGroup being used with the [Responsive extension](https://datatables.net/extensions/responsive) for DataTables. Responsive allows the table to dynamically grow and shrink as the page is resized, or loaded on browsers with different sizes of display.
+
+As can be seen with this example RowGroup and Responsive interact together exactly as would be expected, combining their respective functionality.
+
+
+]]></info>
+
+</dt-example>
+
