@@ -208,7 +208,7 @@ $.extend( RowGroup.prototype, {
 				groupedRows.push( [] );
 				last = group;
 			}
-			
+
 			groupedRows[ groupedRows.length - 1 ].push( this.index() );
 		} );
 
@@ -219,18 +219,23 @@ $.extend( RowGroup.prototype, {
 
 			if ( this.c.startRender ) {
 				display = this.c.startRender.call( this, dt.rows(group), groupName );
-				
-				this
-					._rowWrap( display, this.c.startClassName )
-					.insertBefore( firstRow.node() );
+
+
+				if ( display != undefined && display != '' ) {
+					this
+						._rowWrap( display, this.c.startClassName )
+						.insertBefore( firstRow.node() );
+				}
 			}
 
 			if ( this.c.endRender ) {
 				display = this.c.endRender.call( this, dt.rows(group), groupName );
-				
-				this
-					._rowWrap( display, this.c.endClassName )
-					.insertAfter( dt.row( group[ group.length-1 ] ).node() );
+
+				if ( display != undefined && display != '' ) {
+					this
+						._rowWrap( display, this.c.endClassName )
+						.insertAfter( dt.row( group[ group.length-1 ] ).node() );
+				}
 			}
 		}
 	},
@@ -245,7 +250,7 @@ $.extend( RowGroup.prototype, {
 	_rowWrap: function ( display, className )
 	{
 		var row;
-		
+
 		if ( typeof display === 'object' && display.nodeName && display.nodeName.toLowerCase() === 'tr') {
 			row = $(display);
 		}
