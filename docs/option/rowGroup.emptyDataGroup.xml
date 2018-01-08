@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option library="RowGroup">
+	<name>rowGroup.emptyDataGroup</name>
+	<summary>Text to show for rows which have `null` or `undefined` group data</summary>
+	<since>RowGroup 1.0.2</since>
+
+	<type type="string">
+		<description>
+			The text that will be shown in the grouping row for the data.
+		</description>
+	</type>
+
+	<default value="No group"/>
+
+	<description>
+		If the data point (`-init rowGroup.dataSrc`) for a row is either `null` or `undefined`, it will still create a group of similar data, but the label shown is defined by this option.
+	</description>
+
+	<example title="Set a custom group message"><![CDATA[
+
+$('#myTable').DataTable( {
+	rowGroup: {
+		emptyDataGroup: 'No categories assigned yet'
+	}
+} );
+
+]]></example>
+</dt-option>
