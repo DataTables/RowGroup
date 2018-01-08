@@ -1,11 +1,11 @@
-/*! RowGroup 1.0.2-dev
+/*! RowGroup 1.0.3-dev
  * ©2017 SpryMedia Ltd - datatables.net/license
  */
 
 /**
  * @summary     RowGroup
  * @description RowGrouping for DataTables
- * @version     1.0.2-dev
+ * @version     1.0.3-dev
  * @file        dataTables.rowGroup.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     datatables.net
@@ -333,7 +333,7 @@ RowGroup.defaults = {
 };
 
 
-RowGroup.version = "1.0.2-dev";
+RowGroup.version = "1.0.3-dev";
 
 
 $.fn.dataTable.RowGroup = RowGroup;
