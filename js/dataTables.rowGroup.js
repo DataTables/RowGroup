@@ -212,7 +212,7 @@ $.extend( RowGroup.prototype, {
 			groupedRows[ groupedRows.length - 1 ].push( this.index() );
 		} );
 
-        if (groupedRows.length != rows[0].length || !this.c.hideIfSame) {
+        if (groupedRows[0].length != rows[0].length || !this.c.hideIfSame) {
     		for ( var i=0, ien=groupedRows.length ; i<ien ; i++ ) {
     			var group = groupedRows[i];
     			var firstRow = dt.row(group[0]);
