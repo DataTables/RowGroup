@@ -157,8 +157,8 @@ $.extend( RowGroup.prototype, {
 				groups.push( group );
 			}
 		} );
-		
-		if (groups.length > 1 || !this.c.hideIfSame) {
+
+		if (!((groups.length === 1 && this.c.hideIfAllSame) || (groups.length === rows[0].length && this.c.hideIfAllUnique))) {
 		    
     		dt.on( 'draw.dtrg', function () {
     			if ( that.c.enable ) {
@@ -328,7 +328,13 @@ RowGroup.defaults = {
 	 * Hide if all rows belong to the same group
 	 * @boolean
 	 */
-	hideIfSame: false,
+	hideIfAllSame: false,
+
+	/**
+	 * Hide if all rows belong to unique groups
+	 * @boolean
+	 */
+	hideIfAllUnique: false,
 
 	/**
 	 * Class name to give to the end grouping row
@@ -421,4 +427,3 @@ $(document).on( 'preInit.dt.dtrg', function (e, settings, json) {
 return RowGroup;
 
 }));
-
