@@ -146,20 +146,35 @@ $.extend( RowGroup.prototype, {
 	{
 		var that = this;
 		var dt = this.s.dt;
+		var rows = dt.rows();
+		var groups = [];
 
-		dt.on( 'draw.dtrg', function () {
-			if ( that.c.enable ) {
-				that._draw();
+		rows.every( function () {
+			var d = this.data();
+			var group = that.s.dataFn( d );
+			
+			if ( groups.indexOf(group) == -1 ) {
+				groups.push( group );
 			}
 		} );
+		
+		if (groups.length > 1 || !this.c.hideIfSame) {
+		    
+    		dt.on( 'draw.dtrg', function () {
+    			if ( that.c.enable ) {
+    				that._draw();
+    			}
+    		} );
+    
+    		dt.on( 'column-visibility.dt.dtrg responsive-resize.dt.dtrg', function () {
+    			that._adjustColspan();
+    		} );
+    
+    		dt.on( 'destroy', function () {
+    			dt.off( '.dtrg' );
+    		} );
+		}
 
-		dt.on( 'column-visibility.dt.dtrg responsive-resize.dt.dtrg', function () {
-			that._adjustColspan();
-		} );
-
-		dt.on( 'destroy', function () {
-			dt.off( '.dtrg' );
-		} );
 	},
 
 
@@ -212,29 +227,27 @@ $.extend( RowGroup.prototype, {
 			groupedRows[ groupedRows.length - 1 ].push( this.index() );
 		} );
 
-        if (groupedRows[0].length != rows[0].length || !this.c.hideIfSame) {
-    		for ( var i=0, ien=groupedRows.length ; i<ien ; i++ ) {
-    			var group = groupedRows[i];
-    			var firstRow = dt.row(group[0]);
-    			var groupName = this.s.dataFn( firstRow.data() );
-    
-    			if ( this.c.startRender ) {
-    				display = this.c.startRender.call( this, dt.rows(group), groupName );
-    				
-    				this
-    					._rowWrap( display, this.c.startClassName )
-    					.insertBefore( firstRow.node() );
-    			}
-    
-    			if ( this.c.endRender ) {
-    				display = this.c.endRender.call( this, dt.rows(group), groupName );
-    				
-    				this
-    					._rowWrap( display, this.c.endClassName )
-    					.insertAfter( dt.row( group[ group.length-1 ] ).node() );
-    			}
-    		}
-        }
+		for ( var i=0, ien=groupedRows.length ; i<ien ; i++ ) {
+			var group = groupedRows[i];
+			var firstRow = dt.row(group[0]);
+			var groupName = this.s.dataFn( firstRow.data() );
+
+			if ( this.c.startRender ) {
+				display = this.c.startRender.call( this, dt.rows(group), groupName );
+				
+				this
+					._rowWrap( display, this.c.startClassName )
+					.insertBefore( firstRow.node() );
+			}
+
+			if ( this.c.endRender ) {
+				display = this.c.endRender.call( this, dt.rows(group), groupName );
+				
+				this
+					._rowWrap( display, this.c.endClassName )
+					.insertAfter( dt.row( group[ group.length-1 ] ).node() );
+			}
+		}
 	},
 
 	/**
@@ -404,3 +417,4 @@ $(document).on( 'preInit.dt.dtrg', function (e, settings, json) {
 return RowGroup;
 
 }));
+
