@@ -212,27 +212,29 @@ $.extend( RowGroup.prototype, {
 			groupedRows[ groupedRows.length - 1 ].push( this.index() );
 		} );
 
-		for ( var i=0, ien=groupedRows.length ; i<ien ; i++ ) {
-			var group = groupedRows[i];
-			var firstRow = dt.row(group[0]);
-			var groupName = this.s.dataFn( firstRow.data() );
-
-			if ( this.c.startRender ) {
-				display = this.c.startRender.call( this, dt.rows(group), groupName );
-				
-				this
-					._rowWrap( display, this.c.startClassName )
-					.insertBefore( firstRow.node() );
-			}
-
-			if ( this.c.endRender ) {
-				display = this.c.endRender.call( this, dt.rows(group), groupName );
-				
-				this
-					._rowWrap( display, this.c.endClassName )
-					.insertAfter( dt.row( group[ group.length-1 ] ).node() );
-			}
-		}
+        if (groupedRows.length != rows[0].length || !this.c.hideIfSame) {
+    		for ( var i=0, ien=groupedRows.length ; i<ien ; i++ ) {
+    			var group = groupedRows[i];
+    			var firstRow = dt.row(group[0]);
+    			var groupName = this.s.dataFn( firstRow.data() );
+    
+    			if ( this.c.startRender ) {
+    				display = this.c.startRender.call( this, dt.rows(group), groupName );
+    				
+    				this
+    					._rowWrap( display, this.c.startClassName )
+    					.insertBefore( firstRow.node() );
+    			}
+    
+    			if ( this.c.endRender ) {
+    				display = this.c.endRender.call( this, dt.rows(group), groupName );
+    				
+    				this
+    					._rowWrap( display, this.c.endClassName )
+    					.insertAfter( dt.row( group[ group.length-1 ] ).node() );
+    			}
+    		}
+        }
 	},
 
 	/**
@@ -304,6 +306,12 @@ RowGroup.defaults = {
 	 * @boolean
 	 */
 	enable: true,
+
+	/**
+	 * Hide if all rows belong to the same group
+	 * @boolean
+	 */
+	hideIfSame: false,
 
 	/**
 	 * Class name to give to the end grouping row
