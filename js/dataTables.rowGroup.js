@@ -219,6 +219,10 @@ $.extend( RowGroup.prototype, {
 			var d = this.data();
 			var group = that.s.dataFn( d );
 
+			if ( group === null || group === undefined ) {
+				group = that.c.emptyDataGroup;
+			}
+			
 			if ( last === undefined || group !== last ) {
 				groupedRows.push( [] );
 				last = group;
