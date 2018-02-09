@@ -6,7 +6,7 @@
 
 	<type type="function">
 	<name>rowGroup().enable()</name>
-		<signature>rowGroup().disable( [ enable ] )</signature>
+		<signature>rowGroup().enable( [ enable ] )</signature>
 		<description>
 			Allows the row grouping action to be dynamically enabled, or optionally disabled.
 		</description>
@@ -14,7 +14,7 @@
 			This option can be given as the following values:
 
 			* `true` - Enable RowGroup
-			* `false` - Disable KeyTable (`-api rowGroup().disable()`)
+			* `false` - Disable RowGroup (`-api rowGroup().disable()`)
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance</returns>
 	</type>
@@ -22,7 +22,7 @@
 	<description>
 		This method can be used to dynamically enable the row grouping feature offered by the RowGroup extension for DataTables, and also optionally to disable it using a toggle flag. This can be useful for cases where you want the end user to be able to toggle grouping, and optionally to switch between the grouping used for the table.
 		
-		Please note that the visual effect for grouping being either enabled or disabled is not shown until the DataTable is redrawn. This would typically be done by immediately calling the `-api draw()` method.
+		Please note that the visual effect for grouping being either enabled or disabled is not shown until the DataTable is redrawn. This would typically be done by calling the `-api draw()` method.
 	</description>
 
 	<example title="Enable row grouping"><![CDATA[

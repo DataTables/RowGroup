@@ -6,7 +6,7 @@
 
 	<type type="number|string">
 		<description>
-			If your table is using array based data, this should be the column index that contains the data you want to use to group the table. For object based data sourced, it should be the property name in the data source object.
+			If your table is using array based data, this should be the column index that contains the data you want to use to group the table. For object-based data sources, it should be the property name in the data source object.
 		</description>
 	</type>
 

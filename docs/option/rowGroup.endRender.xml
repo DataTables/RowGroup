@@ -33,7 +33,7 @@
 	</default>
 
 	<description>
-		It can be really useful to modify the contents of the grouping row that is displayed by RowGroup. By default it simply shows the grouping data value, but often you might wish to show more complex data, such as aggregations, counts and other summary information. This option provides that ability by letting you specify a function that with return the data to be shown for the group's starting row.
+		It can be really useful to modify the contents of the grouping row that is displayed by RowGroup. By default it simply shows the grouping data value, but often you might wish to show more complex data, such as aggregations, counts and other summary information. This option provides that ability by letting you specify a function that will return the data to be shown for the group's ending row.
 
 		The function defined by this option will be called once for every group shown in the DataTables' current page, and will be called again every time the page is changed (e.g. paging, search or sort) to keep the grouping information current. As such it is important that the function used should be relatively fast in its execution - e.g. do not make any asynchronous Ajax calls!
 	</description>

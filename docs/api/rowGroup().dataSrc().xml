@@ -32,7 +32,7 @@
 
 		When this method is used as a setter it will trigger the `-event rowgroup-datasrc` event, allowing listeners to modify the DataTable settings based on the new grouping data source.
 
-		Please note that the visual effect for grouping data point being changed is not shown until the DataTable is redrawn. This would typically be done by immediately calling the `-api draw()` method.
+		Please note that the visual effect for grouping data point being changed is not shown until the DataTable is redrawn. This would typically be done by calling the `-api draw()` method.
 	</description>
 
 	<example title="Change the data source based on a data point, allowing the end user to easily change between groupings"><![CDATA[

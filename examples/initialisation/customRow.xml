@@ -44,9 +44,9 @@ $(document).ready(function() {
 
 <info><![CDATA[
 
-When displaying grouping rows with RowGroup, you aren't limited to just a single cell of data spanning the entire width of the table - you can insert a row that makes use of the columns defined in the host table by returning either a `-tag tr` element with the data you want to show, or a jQuery object that contains that row.
+When displaying grouping rows with RowGroup, you aren't limited to just a single cell of data spanning the entire width of the table - you can insert a row that makes use of the columns defined in the host table by returning either a `-tag tr` element with the data you want to show, or a jQuery object containing that row.
 
-This example demonstrates using jQuery to create a grouping row that contains aggrigate data which aligns with the host table's columns, making it quick and easy for the end user to understand a summary of that data.
+This example demonstrates using jQuery to create a grouping row that contains aggregate data which aligns with the host table's columns, making it quick and easy for the end user to understand a summary of that data.
 
 ]]></info>
 

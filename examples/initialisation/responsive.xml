@@ -24,7 +24,7 @@ $(document).ready(function() {
 
 This example shows RowGroup being used with the [Responsive extension](https://datatables.net/extensions/responsive) for DataTables. Responsive allows the table to dynamically grow and shrink as the page is resized, or loaded on browsers with different sizes of display.
 
-As can be seen with this example RowGroup and Responsive interact together exactly as would be expected, combining their respective functionality.
+As can be seen with this example, RowGroup and Responsive interact together exactly as would be expected, combining their respective functionality.
 
 
 ]]></info>

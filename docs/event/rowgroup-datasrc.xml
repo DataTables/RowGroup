@@ -19,7 +19,7 @@
 	</type>
 
 	<description>
-		The ability to change the data point that is used to group a table can be quite useful, allowing the end user to easily group data in different ways, but when that happens you might often which to update the table's settings in some ways - the most typical being using ordering in the table to reflect the new grouping.
+		The ability to change the data point that is used to group a table can be useful, allowing the end user to easily group data in different ways, but when that happens you may wish to also update the table's settings - the most typical being using ordering in the table to reflect the new grouping.
 
 		This event is triggered whenever the data source for the grouping is modified, providing you with that ability to modify the table's settings.
 	</description>
