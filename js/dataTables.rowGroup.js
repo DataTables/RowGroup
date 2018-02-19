@@ -1,5 +1,5 @@
 /*! RowGroup 1.0.3-dev
- * ©2017 SpryMedia Ltd - datatables.net/license
+ * ©2017-2018 SpryMedia Ltd - datatables.net/license
  */
 
 /**
@@ -9,7 +9,7 @@
  * @file        dataTables.rowGroup.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     datatables.net
- * @copyright   Copyright 2017 SpryMedia Ltd.
+ * @copyright   Copyright 2017-2018 SpryMedia Ltd.
  *
  * This source file is free software, available under the following license:
  *   MIT license - http://datatables.net/license/mit
