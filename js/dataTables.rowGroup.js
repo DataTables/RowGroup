@@ -146,20 +146,35 @@ $.extend( RowGroup.prototype, {
 	{
 		var that = this;
 		var dt = this.s.dt;
+		var rows = dt.rows();
+		var groups = [];
 
-		dt.on( 'draw.dtrg', function () {
-			if ( that.c.enable ) {
-				that._draw();
+		rows.every( function () {
+			var d = this.data();
+			var group = that.s.dataFn( d );
+			
+			if ( groups.indexOf(group) == -1 ) {
+				groups.push( group );
 			}
 		} );
 
-		dt.on( 'column-visibility.dt.dtrg responsive-resize.dt.dtrg', function () {
-			that._adjustColspan();
-		} );
+		if (!((groups.length === 1 && this.c.hideIfAllSame) || (groups.length === rows[0].length && this.c.hideIfAllUnique))) {
+		    
+    		dt.on( 'draw.dtrg', function () {
+    			if ( that.c.enable ) {
+    				that._draw();
+    			}
+    		} );
+    
+    		dt.on( 'column-visibility.dt.dtrg responsive-resize.dt.dtrg', function () {
+    			that._adjustColspan();
+    		} );
+    
+    		dt.on( 'destroy', function () {
+    			dt.off( '.dtrg' );
+    		} );
+		}
 
-		dt.on( 'destroy', function () {
-			dt.off( '.dtrg' );
-		} );
 	},
 
 
@@ -204,6 +219,10 @@ $.extend( RowGroup.prototype, {
 			var d = this.data();
 			var group = that.s.dataFn( d );
 
+			if ( group === null || group === undefined ) {
+				group = that.c.emptyDataGroup;
+			}
+			
 			if ( last === undefined || group !== last ) {
 				groupedRows.push( [] );
 				last = group;
@@ -304,6 +323,18 @@ RowGroup.defaults = {
 	 * @boolean
 	 */
 	enable: true,
+
+	/**
+	 * Hide if all rows belong to the same group
+	 * @boolean
+	 */
+	hideIfAllSame: false,
+
+	/**
+	 * Hide if all rows belong to unique groups
+	 * @boolean
+	 */
+	hideIfAllUnique: false,
 
 	/**
 	 * Class name to give to the end grouping row
