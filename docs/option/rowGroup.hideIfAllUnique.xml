@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option library="RowGroup">
+	<name>rowGroup.hideIfAllUnique</name>
+	<summary>Hide the grouping row if all rows are in their own unique groups</summary>
+	<since>RowGroup 1.1.0</since>
+
+	<type type="boolean">
+		<description>
+			As a boolean value this property will control whether groups are hidden or not if all rows are uniquely grouped.
+		</description>
+	</type>
+
+	<default value="false">
+		Grouping will not be hidden if all rows are uniquely grouped.
+	</default>
+
+	<description>
+		If the data in each row dictates that the table's rows will each uniquely be in their own group (i.e. there are as many groups as rows), the information shown in the grouping row could be redundant. This option provides RowGroup with the ability to disable the display of the grouping rows in this scenario.
+	</description>
+
+	<example title="Enable hiding of grouping information if all rows are in a unique group."><![CDATA[
+
+$('#myTable').DataTable( {
+	rowGroup: {
+		hideIfAllUnique: true
+	}
+} );
+
+]]></example>
+
+</dt-option>

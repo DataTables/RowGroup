@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-option library="RowGroup">
+	<name>rowGroup.hideIfSame</name>
+	<summary>Hide the grouping row if all rows are in a single group</summary>
+	<since>RowGroup 1.1.0</since>
+
+	<type type="boolean">
+		<description>
+			As a boolean value this property will control whether groups are hidden or not if all rows are in a single group.
+		</description>
+	</type>
+
+	<default value="false">
+		Grouping will not be hidden if all rows are in a single group.
+	</default>
+
+	<description>
+		This option can be used to optionally disable the display of grouping rows if all rows are in a single group. In such a case the grouping row could be seen as redundant.
+	</description>
+
+	<example title="Hide the grouping row if only a single group of data is present"><![CDATA[
+
+$('#myTable').DataTable( {
+	rowGroup: {
+		hideIfSame: true
+	}
+} );
+
+]]></example>
+
+</dt-option>
