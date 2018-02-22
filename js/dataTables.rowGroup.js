@@ -158,23 +158,19 @@ $.extend( RowGroup.prototype, {
 			}
 		} );
 
-		if (!((groups.length === 1 && this.c.hideIfAllSame) || (groups.length === rows[0].length && this.c.hideIfAllUnique))) {
-		    
-    		dt.on( 'draw.dtrg', function () {
-    			if ( that.c.enable ) {
-    				that._draw();
-    			}
-    		} );
-    
-    		dt.on( 'column-visibility.dt.dtrg responsive-resize.dt.dtrg', function () {
-    			that._adjustColspan();
-    		} );
-    
-    		dt.on( 'destroy', function () {
-    			dt.off( '.dtrg' );
-    		} );
-		}
+		dt.on( 'draw.dtrg', function () {
+			if ( that.c.enable ) {
+				that._draw();
+			}
+		} );
 
+		dt.on( 'column-visibility.dt.dtrg responsive-resize.dt.dtrg', function () {
+			that._adjustColspan();
+		} );
+
+		dt.on( 'destroy', function () {
+			dt.off( '.dtrg' );
+		} );
 	},
 
 
@@ -323,18 +319,6 @@ RowGroup.defaults = {
 	 * @boolean
 	 */
 	enable: true,
-
-	/**
-	 * Hide if all rows belong to the same group
-	 * @boolean
-	 */
-	hideIfAllSame: false,
-
-	/**
-	 * Hide if all rows belong to unique groups
-	 * @boolean
-	 */
-	hideIfAllUnique: false,
 
 	/**
 	 * Class name to give to the end grouping row
