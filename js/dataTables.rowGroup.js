@@ -71,7 +71,7 @@ var RowGroup = function ( dt, opts ) {
 		dataFn: []
 	};
 
-	for (let i = 0; i < this.c.dataSrc.length; i++) {
+	for (var i = 0; i < this.c.dataSrc.length; i++) {
 		this.s.dataFn.push(DataTable.ext.oApi._fnGetObjectDataFn( this.c.dataSrc[i] ))
 	}
 	
@@ -215,7 +215,7 @@ $.extend( RowGroup.prototype, {
 	_draw: function ()
 	{
 		var dataFn = this.s.dataFn
-		for(let j = 0; j < dataFn.length; j++)
+		for(var j = 0; j < dataFn.length; j++)
 		{
 			var dt = this.s.dt;
 			var rows = dt.rows( { page: 'current' } );
@@ -247,7 +247,7 @@ $.extend( RowGroup.prototype, {
 
 				groupName = gpm ? gpm + ': ' + groupName : groupName
 
-				let gpNM = j === 0 ? this.c.startClassName + '-' + j : 'subgroup-' + j
+				var gpNM = j === 0 ? this.c.startClassName + '-' + j : 'subgroup-' + j
 				
 				if ( this.c.startRender ) {
 					display = this.c.startRender.call( this, dt.rows(group), groupName );
@@ -304,15 +304,15 @@ $.extend( RowGroup.prototype, {
 				);
 		}
 
-		let dt = this.s.dt
+		var dt = this.s.dt
 
 		row.addClass( this.c.className )
 		   .addClass( className )
 		   .css('cursor', 'pointer')
 
 		$(row).on('click', function() {
-			let currentRow = $(this).next()
-			let hide = true
+			var currentRow = $(this).next()
+			var hide = true
 			
 			if($(this).data('colapsed')) {
 				$(this).data('colapsed', false)
@@ -324,7 +324,7 @@ $.extend( RowGroup.prototype, {
 			}
 
 			// Verifica se é um grupo root
-			let isRootGroup = $(this).attr("class").split(' ').map((item) => { return item.indexOf('group-start-') !== -1 }).indexOf(true) !== -1;
+			var isRootGroup = $(this).attr("class").split(' ').map((item) => { return item.indexOf('group-start-') !== -1 }).indexOf(true) !== -1;
 			if(isRootGroup) {
 				// Percorre todas as linhas até encontrar o proximo grupo root
 				while ($(currentRow).attr("class") && !($(currentRow).attr("class").split(' ').map((item) => { return item.indexOf('group-start-') !== -1 }).indexOf(true) !== -1)) {
