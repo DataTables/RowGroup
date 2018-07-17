@@ -322,24 +322,61 @@ $.extend( RowGroup.prototype, {
 				$(this).data('colapsed', true)
 				hide = true
 			}
-
+			
 			// Verifica se é um grupo root
-			var isRootGroup = $(this).attr("class").split(' ').map((item) => { return item.indexOf('group-start-') !== -1 }).indexOf(true) !== -1;
-			if(isRootGroup) {
-				// Percorre todas as linhas até encontrar o proximo grupo root
-				while ($(currentRow).attr("class") && !($(currentRow).attr("class").split(' ').map((item) => { return item.indexOf('group-start-') !== -1 }).indexOf(true) !== -1)) {
-					hide ? $(currentRow).hide(400) : $(currentRow).show(400)
-					currentRow = $(currentRow).next()
-				}			
-			}
-			else { // Se for um subgrupo
-				// Percorre ate encontrar o proximo subgrupo
-				while ($(currentRow).attr("class") && !($(currentRow).attr("class").split(' ').map((item) => { return item.indexOf('subgroup') !== -1 }).indexOf(true) !== -1) &&
-					   !($(currentRow).attr("class").split(' ').map((item) => { return item.indexOf('group-start-') !== -1 }).indexOf(true) !== -1)) {
+			var isRootGroup =
+				$(this)
+					.attr("class")
+					.split(" ")
+					.map( function (item) {
+						return item.indexOf("group-start-") !== -1;
+					})
+					.indexOf(true) !== -1;
 
-					hide ? $(currentRow).hide(400) : $(currentRow).show(400)
-					currentRow = $(currentRow).next()
-				}			
+			if (isRootGroup) {
+				// Percorre todas as linhas até encontrar o proximo grupo root
+				while (
+					$(currentRow).attr("class") &&
+					!(
+						$(currentRow)
+							.attr("class")
+							.split(" ")
+							.map( function (item) {
+								return item.indexOf("group-start-") !== -1;
+							})
+							.indexOf(true) !== -1
+					)
+				) {
+					hide ? $(currentRow).hide(400) : $(currentRow).show(400);
+					currentRow = $(currentRow).next();
+				}
+			} else {
+				// Se for um subgrupo
+				// Percorre ate encontrar o proximo subgrupo
+				while (
+					$(currentRow).attr("class") &&
+					!(
+						$(currentRow)
+							.attr("class")
+							.split(" ")
+							.map( function (item) {
+								return item.indexOf("subgroup") !== -1;
+							})
+							.indexOf(true) !== -1
+					) &&
+					!(
+						$(currentRow)
+							.attr("class")
+							.split(" ")
+							.map( function (item) {
+								return item.indexOf("group-start-") !== -1;
+							})
+							.indexOf(true) !== -1
+					)
+				) {
+					hide ? $(currentRow).hide(400) : $(currentRow).show(400);
+					currentRow = $(currentRow).next();
+				}
 			}
 		})
 
