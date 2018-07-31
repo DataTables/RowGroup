@@ -10,7 +10,7 @@
 		<description>
 			Get the property currently being used as the grouping data source.
 		</description>
-		<returns type="number|string">Data source property</returns>
+		<returns type="number|string|array">Data source property</returns>
 	</type>
 
 	<type type="function">
@@ -18,8 +18,10 @@
 		<signature>rowGroup().dataSrc( prop )</signature>
 		<description>
 			Set the property to be used as the grouping data source.
+
+			As of RowGroup 1.1.0 it is possible to set this value to be an array, allowing multiple levels of row grouping.
 		</description>
-		<parameter name="prop" type="number|string">
+		<parameter name="prop" type="number|string|array">
 			
 		</parameter>
 		<returns type="DataTables.Api">DataTables API instance</returns>

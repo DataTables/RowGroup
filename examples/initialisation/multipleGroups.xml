@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="7">
+
+<css lib="datatables rowgroup">
+
+tr.odd td:first-child,
+tr.even td:first-child {
+	padding-left: 4em;
+}
+
+</css>
+<js lib="jquery datatables rowgroup">
+<![CDATA[
+
+$(document).ready(function() {
+	$('#example').DataTable( {
+		order: [[2, 'asc'], [1, 'asc']],
+		rowGroup: {
+			dataSrc: [ 2, 1 ]
+		},
+		columnDefs: [ {
+			targets: [ 1, 2 ],
+			visible: false
+		} ]
+	} );
+} );
+
+]]>
+</js>
+
+<title lib="RowGroup">Multi-level grouping</title>
+
+<info><![CDATA[
+
+RowGroup provides the ability to group data a multiple levels. This example shows the `-init rowGroup.dataSrc` option being used as an array to specify the _Office_ as the top level group and _Position_ as the second level.
+
+A little CSS is used to indent the first column to reflect the visual nesting of data (click the "CSS" tab below to view).
+
+]]></info>
+
+</dt-example>
+
