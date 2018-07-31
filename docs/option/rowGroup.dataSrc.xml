@@ -10,6 +10,12 @@
 		</description>
 	</type>
 
+	<type type="array" since="1.1.0">
+		<description>
+			As of RowGroup 1.1.0 it is possible to nest multiple levels of data by providing this parameter as an array of values. The values can be numbers or strings as defined above. The top level of nesting is array index 0, and progressively gets deeper with the array indexes.
+		</description>
+	</type>
+
 	<default value="0"/>
 
 	<description>
@@ -27,6 +33,19 @@
 $('#myTable').DataTable( {
 	rowGroup: {
 		dataSrc: 'group'
+	}
+} );
+
+]]></example>
+
+	<example title="Nested data"><![CDATA[
+
+$('#myTable').DataTable( {
+	rowGroup: {
+		dataSrc: [
+			'group',
+			'date'
+		]
 	}
 } );
 

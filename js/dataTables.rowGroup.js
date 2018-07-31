@@ -1,11 +1,11 @@
-/*! RowGroup 1.0.4
+/*! RowGroup 1.1.0-dev
  * ©2017-2018 SpryMedia Ltd - datatables.net/license
  */
 
 /**
  * @summary     RowGroup
  * @description RowGrouping for DataTables
- * @version     1.0.4
+ * @version     1.1.0-dev
  * @file        dataTables.rowGroup.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     datatables.net
@@ -66,15 +66,8 @@ var RowGroup = function ( dt, opts ) {
 
 	// Internal settings
 	this.s = {
-		dt: new DataTable.Api( dt ),
-
-		dataFn: []
+		dt: new DataTable.Api( dt )
 	};
-
-	for (var i = 0; i < this.c.dataSrc.length; i++) {
-		this.s.dataFn.push(DataTable.ext.oApi._fnGetObjectDataFn( this.c.dataSrc[i] ))
-	}
-	
 
 	// DOM items
 	this.dom = {
@@ -112,7 +105,6 @@ $.extend( RowGroup.prototype, {
 		var dt = this.s.dt;
 
 		this.c.dataSrc = val;
-		this.s.dataFn = DataTable.ext.oApi._fnGetObjectDataFn( this.c.dataSrc );
 
 		$(dt.table().node()).triggerHandler( 'rowgroup-datasrc.dt', [ dt, val ] );
 
@@ -151,17 +143,6 @@ $.extend( RowGroup.prototype, {
 	{
 		var that = this;
 		var dt = this.s.dt;
-		var rows = dt.rows();
-		var groups = [];
-
-		rows.every( function () {
-			var d = this.data();
-			var group = that.s.dataFn( d );
-			
-			if ( groups.indexOf(group) == -1 ) {
-				groups.push( group );
-			}
-		} );
 
 		dt.on( 'draw.dtrg', function () {
 			if ( that.c.enable ) {
@@ -208,62 +189,114 @@ $.extend( RowGroup.prototype, {
 		}, 0 );
 	},
 
+
 	/**
-	 * Update function that is called whenever we need to draw the grouping rows
+	 * Update function that is called whenever we need to draw the grouping rows.
+	 * This is basically a bootstrap for the self iterative _group and _groupDisplay
+	 * methods
 	 * @private
 	 */
 	_draw: function ()
 	{
-		var dataFn = this.s.dataFn
-		for(var j = 0; j < dataFn.length; j++)
-		{
-			var dt = this.s.dt;
-			var rows = dt.rows( { page: 'current' } );
-			var groupedRows = [];
-			var last, lastGroupBefore, display;
+		var dt = this.s.dt;
+		var groupedRows = this._group( 0, dt.rows( { page: 'current' } ).indexes() );
 
-			rows.every( function () {
-				var d = this.data();
-				var group = dataFn[j]( d );
-				var groupBefore = j > 0 ? dataFn[j - 1]( d ) : undefined;
+		this._groupDisplay( 0, groupedRows );
+	},
 
-				if ( last === undefined || group !== last ||
-						 (groupBefore !== undefined && lastGroupBefore === undefined) ||
-						 (groupBefore !== undefined && groupBefore !== lastGroupBefore) ) {
-					groupedRows.push( [] );
-					last = group;
-					groupBefore !== undefined ? lastGroupBefore = groupBefore : lastGroupBefore = undefined
+	/**
+	 * Get the grouping information from a data set (index) of rows
+	 * @param {number} level Nesting level
+	 * @param {DataTables.Api} rows API of the rows to consider for this group
+	 * @returns {object[]} Nested grouping information - it is structured like this:
+	 *	{
+	 *		dataPoint: 'Edinburgh',
+	 *		rows: [ 1,2,3,4,5,6,7 ],
+	 *		children: [ {
+	 *			dataPoint: 'developer'
+	 *			rows: [ 1, 2, 3 ]
+	 *		},
+	 *		{
+	 *			dataPoint: 'support',
+	 *			rows: [ 4, 5, 6, 7 ]
+	 *		} ]
+	 *	}
+	 * @private
+	 */
+	_group: function ( level, rows ) {
+		var fns = $.isArray( this.c.dataSrc ) ? this.c.dataSrc : [ this.c.dataSrc ];
+		var fn = DataTable.ext.oApi._fnGetObjectDataFn( fns[ level ] );
+		var dt = this.s.dt;
+		var group, last;
+		var data = [];
+
+		for ( var i=0, ien=rows.length ; i<ien ; i++ ) {
+			var rowIndex = rows[i];
+			var rowData = dt.row( rowIndex ).data();
+			var group = fn( rowData );
+
+			if ( group === null || group === undefined ) {
+				group = that.c.emptyDataGroup;
+			}
+			
+			if ( last === undefined || group !== last ) {
+				data.push( {
+					dataPoint: group,
+					rows: []
+				} );
+
+				last = group;
+			}
+
+			data[ data.length-1 ].rows.push( rowIndex );
+		}
+
+		if ( fns[ level+1 ] !== undefined ) {
+			for ( var i=0, ien=data.length ; i<ien ; i++ ) {
+				data[i].children = this._group( level+1, data[i].rows );
+			}
+		}
+
+		return data;
+	},
+
+	/**
+	 * Row group display - insert the rows into the document
+	 * @param {number} level Nesting level
+	 * @param {object[]} groups Takes the nested array from `_group`
+	 * @private
+	 */
+	_groupDisplay: function ( level, groups )
+	{
+		var dt = this.s.dt;
+		var display;
+	
+		for ( var i=0, ien=groups.length ; i<ien ; i++ ) {
+			var group = groups[i];
+			var groupName = group.dataPoint;
+			var row;
+			var rows = group.rows;
+
+			if ( this.c.startRender ) {
+				display = this.c.startRender.call( this, dt.rows(rows), groupName, level );
+				row = this._rowWrap( display, this.c.startClassName, level );
+
+				if ( row ) {
+					row.insertBefore( dt.row( rows[0] ).node() );
 				}
-				
-				groupedRows[ groupedRows.length - 1 ].push( this.index() );
-			} );
+			}
 
-			for ( var i=0, ien=groupedRows.length ; i<ien ; i++ ) {
-				var group = groupedRows[i];
-				var firstRow = dt.row(group[0]);
-				var groupName = dataFn[j]( firstRow.data() );
-				
-				var gpm = this.s.dt.columns().header()[this.c.dataSrc[j]].innerText.capitalize()
+			if ( this.c.endRender ) {
+				display = this.c.endRender.call( this, dt.rows(rows), groupName, level );
+				row = this._rowWrap( display, this.c.endClassName, level );
 
-				groupName = gpm ? gpm + ': ' + groupName : groupName
-
-				var gpNM = j === 0 ? this.c.startClassName + '-' + j : 'subgroup-' + j
-				
-				if ( this.c.startRender ) {
-					display = this.c.startRender.call( this, dt.rows(group), groupName );
-
-					this
-						._rowWrap( display, gpNM, group, j )
-						.insertBefore( firstRow.node() );
+				if ( row ) {
+					row.insertAfter( dt.row( rows[ rows.length-1 ] ).node() );
 				}
+			}
 
-				if ( this.c.endRender ) {
-					display = this.c.endRender.call( this, dt.rows(group), groupName );
-					
-					this
-						._rowWrap( display, this.c.endClassName, group, j )
-						.insertAfter( dt.row( group[ group.length-1 ] ).node() );
-				}
+			if ( group.children ) {
+				this._groupDisplay( level+1, group.children );
 			}
 		}
 	},
@@ -271,21 +304,21 @@ $.extend( RowGroup.prototype, {
 	/**
 	 * Take a rendered value from an end user and make it suitable for display
 	 * as a row, by wrapping it in a row, or detecting that it is a row.
-	 * @param [node|jQuery|string] display Display value
-	 * @param [string] className Class to add to the row
-	 * @param [array] group
-	 * @param [number] group level
+	 * @param {node|jQuery|string} display Display value
+	 * @param {string} className Class to add to the row
+	 * @param {array} group
+	 * @param {number} group level
 	 * @private
 	 */
-	_rowWrap: function ( display, className, group, level )
+	_rowWrap: function ( display, className, level )
 	{
 		var row;
 		
-		if ( display === null || display === undefined || display === '' ) {
+		if ( display === null || display === '' ) {
 			display = this.c.emptyDataGroup;
 		}
 
-		if ( display === null ) {
+		if ( display === undefined ) {
 			return null;
 		}
 		
@@ -304,83 +337,10 @@ $.extend( RowGroup.prototype, {
 				);
 		}
 
-		var dt = this.s.dt
-
-		row.addClass( this.c.className )
-		   .addClass( className )
-		   .css('cursor', 'pointer')
-
-		$(row).on('click', function() {
-			var currentRow = $(this).next()
-			var hide = true
-			
-			if($(this).data('colapsed')) {
-				$(this).data('colapsed', false)
-				hide = false
-			}
-			else {
-				$(this).data('colapsed', true)
-				hide = true
-			}
-			
-			// Verifica se é um grupo root
-			var isRootGroup =
-				$(this)
-					.attr("class")
-					.split(" ")
-					.map( function (item) {
-						return item.indexOf("group-start-") !== -1;
-					})
-					.indexOf(true) !== -1;
-
-			if (isRootGroup) {
-				// Percorre todas as linhas até encontrar o proximo grupo root
-				while (
-					$(currentRow).attr("class") &&
-					!(
-						$(currentRow)
-							.attr("class")
-							.split(" ")
-							.map( function (item) {
-								return item.indexOf("group-start-") !== -1;
-							})
-							.indexOf(true) !== -1
-					)
-				) {
-					hide ? $(currentRow).hide(400) : $(currentRow).show(400);
-					currentRow = $(currentRow).next();
-				}
-			} else {
-				// Se for um subgrupo
-				// Percorre ate encontrar o proximo subgrupo
-				while (
-					$(currentRow).attr("class") &&
-					!(
-						$(currentRow)
-							.attr("class")
-							.split(" ")
-							.map( function (item) {
-								return item.indexOf("subgroup") !== -1;
-							})
-							.indexOf(true) !== -1
-					) &&
-					!(
-						$(currentRow)
-							.attr("class")
-							.split(" ")
-							.map( function (item) {
-								return item.indexOf("group-start-") !== -1;
-							})
-							.indexOf(true) !== -1
-					)
-				) {
-					hide ? $(currentRow).hide(400) : $(currentRow).show(400);
-					currentRow = $(currentRow).next();
-				}
-			}
-		})
-
-		return row;
+		return row
+			.addClass( this.c.className )
+			.addClass( className )
+			.addClass( 'dtrg-level-'+level );
 	}
 } );
 
@@ -398,11 +358,11 @@ RowGroup.defaults = {
 	 * end grouping rows.
 	 * @type string
 	 */
-	className: 'group',
+	className: 'dtrg-group',
 
 	/**
 	 * Data property from which to read the grouping information
-	 * @type string|integer
+	 * @type string|integer|array
 	 */
 	dataSrc: 0,
 
@@ -422,7 +382,7 @@ RowGroup.defaults = {
 	 * Class name to give to the end grouping row
 	 * @type string
 	 */
-	endClassName: 'group-end',
+	endClassName: 'dtrg-end',
 
 	/**
 	 * End grouping label function
@@ -434,7 +394,7 @@ RowGroup.defaults = {
 	 * Class name to give to the start grouping row
 	 * @type string
 	 */
-	startClassName: 'group-start',
+	startClassName: 'dtrg-start',
 
 	/**
 	 * Start grouping label function
@@ -446,7 +406,7 @@ RowGroup.defaults = {
 };
 
 
-RowGroup.version = "1.0.4";
+RowGroup.version = "1.1.0-dev";
 
 
 $.fn.dataTable.RowGroup = RowGroup;
