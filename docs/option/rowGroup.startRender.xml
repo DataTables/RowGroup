@@ -11,12 +11,15 @@
 	</type>
 
 	<type type="function">
-		<signature>startRender( rows, group )</signature>
+		<signature>startRender( rows, group, level )</signature>
 		<parameter type="DataTables.Api" name="rows">
 			A DataTables API instance resulting from `-api rows()` on the rows in this group.
 		</parameter>
 		<parameter type="string" name="group">
 			The value of the group's data point (defined by `-init rowGroup.dataSrc`).
+		</parameter>
+		<parameter type="number" name="level" since="1.1.0">
+			The nesting level. Top level is index 0.
 		</parameter>
 		<returns type="string|node|jQuery">
 			The information returned by the rendering function may be one of:
