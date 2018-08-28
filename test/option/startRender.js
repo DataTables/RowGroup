@@ -141,6 +141,6 @@ describe('Start render', function() {
 			JSON.stringify(['Edinburgh', '22', '23', '35', '42', '43', '46', '51', '61', 'London', '19'])
 		);
 		expect(JSON.stringify(allLevels)).toBe(JSON.stringify([0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1]));
-		expect($('#example tbody tr').length).toBe(2100);
+		expect($('#example tbody tr').length).toBe(21);
 	});
 });
