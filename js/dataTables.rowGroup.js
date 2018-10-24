@@ -229,6 +229,7 @@ $.extend( RowGroup.prototype, {
 		var dt = this.s.dt;
 		var group, last;
 		var data = [];
+		var that = this;
 
 		for ( var i=0, ien=rows.length ; i<ien ; i++ ) {
 			var rowIndex = rows[i];
