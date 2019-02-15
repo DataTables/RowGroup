@@ -1,4 +1,4 @@
-describe('dataSrc', function() {
+describe('rowGroup.dataSrc', function() {
 	var table;
 
 	dt.libs({
