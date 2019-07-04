@@ -11,7 +11,7 @@ describe('Enable', function() {
 		expect($.fn.dataTable.RowGroup.defaults.enable).toBe(true);
 	});
 
-	it('Is indeed enabled', function() {
+	it('Is enabled', function() {
 		table = $('#example').DataTable({
 			order: [[2, 'asc']],
 			rowGroup: {
