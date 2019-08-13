@@ -1,4 +1,4 @@
-describe('RowGroup - Start render', function() {
+describe('RowGroup - startRender', function() {
 	var table;
 
 	dt.libs({
