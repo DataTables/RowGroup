@@ -1,4 +1,4 @@
-describe('rowGroup.emptyDataGroup', function() {
+describe('RowGroup - rowGroup.emptyDataGroup', function() {
 	var table;
 
 	dt.libs({

@@ -1,4 +1,4 @@
-describe('End render', function() {
+describe('RowGroup - End render', function() {
 	var table;
 
 	dt.libs({

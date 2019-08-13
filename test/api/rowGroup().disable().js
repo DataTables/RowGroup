@@ -1,4 +1,4 @@
-describe('rowGroup().disable()', function() {
+describe('RowGroup - rowGroup().disable()', function() {
 	let table;
 
 	dt.libs({
