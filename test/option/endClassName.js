@@ -1,4 +1,4 @@
-describe('End class name', function() {
+describe('RowGroup - End class name', function() {
 	var table;
 
 	dt.libs({

@@ -1,4 +1,4 @@
-describe('rowGroup.emptyDataGroup', function() {
+describe('RowGroup - rowGroup.emptyDataGroup', function() {
 	var table;
 
 	dt.libs({
@@ -25,13 +25,15 @@ describe('rowGroup.emptyDataGroup', function() {
 			}
 		});
 
-		table.row.add({name: 'name1', position: 'position1', office: 'office1', age: 'age1', start_date: 'date1', salary: ''}).draw();
+		table.row
+			.add({ name: 'name1', position: 'position1', office: 'office1', age: 'age1', start_date: 'date1', salary: '' })
+			.draw();
 
 		expect($('tr.dtrg-group').text()).toBe('No group');
 	});
 
 	dt.html('empty');
-	it('Default value when run', function() {
+	it('Can modify', function() {
 		table = $('#example').DataTable({
 			columns: [
 				{ data: 'name' },
@@ -47,8 +49,34 @@ describe('rowGroup.emptyDataGroup', function() {
 			}
 		});
 
-		table.row.add({name: 'name1', position: 'position1', office: 'office1', age: 'age1', start_date: 'date1', salary: ''}).draw();
+		table.row
+			.add({ name: 'name1', position: 'position1', office: 'office1', age: 'age1', start_date: 'date1', salary: '' })
+			.draw();
 
 		expect($('tr.dtrg-group').text()).toBe('unit_test');
+	});
+
+	dt.html('empty');
+	it('No group shown if set to null', function() {
+		table = $('#example').DataTable({
+			columns: [
+				{ data: 'name' },
+				{ data: 'position' },
+				{ data: 'office' },
+				{ data: 'age' },
+				{ data: 'start_date' },
+				{ data: 'salary' }
+			],
+			rowGroup: {
+				dataSrc: 'salary',
+				emptyDataGroup: null
+			}
+		});
+
+		table.row
+			.add({ name: 'name1', position: 'position1', office: 'office1', age: 'age1', start_date: 'date1', salary: '' })
+			.draw();
+
+		expect($('tr.dtrg-group').length).toBe(0);
 	});
 });

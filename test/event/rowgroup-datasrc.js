@@ -1,4 +1,4 @@
-describe('rowgroup-datasrc', function() {
+describe('RowGroup - rowgroup-datasrc', function() {
 	var table;
 	var args = undefined;
 
