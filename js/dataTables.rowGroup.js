@@ -239,7 +239,11 @@ $.extend( RowGroup.prototype, {
 			if ( group === null || group === undefined ) {
 				group = that.c.emptyDataGroup;
 			}
-			
+
+			if ( group.display !== undefined ) {
+				group = group.display;
+			}
+
 			if ( last === undefined || group !== last ) {
 				data.push( {
 					dataPoint: group,
