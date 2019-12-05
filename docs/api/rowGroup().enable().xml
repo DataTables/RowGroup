@@ -38,5 +38,7 @@ table.rowGroup().enable().draw();
 ]]></example>
 
 	<related>-init rowGroup.enable</related>
+	<related>-api rowGroup().enabled()</related>
+	<related>-api rowGroup().enable()</related>
 	<related>-api rowGroup().disable()</related>
 </dt-api>
