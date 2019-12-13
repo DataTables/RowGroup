@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="8">
+
+<css lib="datatables rowgroup">
+table.dataTable tr.group-end td {
+	text-align: right;
+	font-weight: normal;
+}
+</css>
+<js lib="jquery datatables rowgroup">
+<![CDATA[
+
+$(document).ready(function() {
+	$('#example').DataTable( {
+		order: [[3, 'asc']],
+		rowGroup: {
+			dataSrc: function ( row ) {
+				var base = Math.floor(row[3] / 10);
+				return "" + base + "0 - " + base + '9';
+			}
+		}
+	} );
+} );
+
+]]>
+</js>
+
+<title lib="RowGroup">Group with a range of values</title>
+
+<info><![CDATA[
+
+The other examples in this section groups the rows based on specific values in the columns. This example demonstrates how you can group by any criteria, such as an age range, by implementing `-init rowGroup.dataSrc` as a function to return a customised grouping for the rows.
+
+]]></info>
+
+</dt-example>
+
