@@ -183,7 +183,7 @@ $.extend( RowGroup.prototype, {
 	 */
 	_adjustColspan: function ()
 	{
-		$( 'tr.'+this.c.className, this.s.dt.table().body() ).find('td')
+		$( 'tr.'+this.c.className, this.s.dt.table().body() ).find('td:visible')
 			.attr( 'colspan', this._colspan() );
 	},
 
