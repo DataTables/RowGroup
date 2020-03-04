@@ -166,10 +166,6 @@ $.extend( RowGroup.prototype, {
 		dt.on( 'destroy', function () {
 			dt.off( '.dtrg' );
 		} );
-
-		dt.on('responsive-resize.dt', function () {
-			that._adjustColspan();
-		})
 	},
 
 
