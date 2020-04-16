@@ -152,9 +152,10 @@ $.extend( RowGroup.prototype, {
 	{
 		var that = this;
 		var dt = this.s.dt;
+		var hostSettings = dt.settings()[0];
 
-		dt.on( 'draw.dtrg', function () {
-			if ( that.c.enable ) {
+		dt.on( 'draw.dtrg', function (e, s) {
+			if ( that.c.enable && hostSettings === s ) {
 				that._draw();
 			}
 		} );
