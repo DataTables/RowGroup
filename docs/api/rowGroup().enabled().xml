@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-api library="RowGroup">
+	<name>rowGroup().enabled()</name>
+	<summary>Determine if RowGroup is enabled on a table</summary>
+	<since>1.1.2</since>
+
+	<type type="function">
+	<name>rowGroup().enabled()</name>
+		<signature>rowGroup().enable()</signature>
+		<description>
+			Get the enabled state for RowGroup.
+		</description>
+		<returns type="boolean">`true` if enabled, `false` otherwise.</returns>
+	</type>
+
+	<description>
+		This method simply gets the enabled state of the RowGroup extension for the target table. This can be useful to programmatically enable and disable RowGroup on a table.
+	</description>
+
+	<related>-init rowGroup.enable</related>
+	<related>-api rowGroup().enabled()</related>
+	<related>-api rowGroup().enable()</related>
+	<related>-api rowGroup().disable()</related>
+</dt-api>
