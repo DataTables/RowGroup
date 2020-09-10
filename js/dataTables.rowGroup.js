@@ -245,6 +245,10 @@ $.extend( RowGroup.prototype, {
 			if ( group === null || group === undefined ) {
 				group = that.c.emptyDataGroup;
 			}
+
+			if (typeof group == "object" && group.display !== undefined) {
+				group = group.display;
+			}
 			
 			if ( last === undefined || group !== last ) {
 				data.push( {
