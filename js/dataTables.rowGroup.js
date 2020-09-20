@@ -175,13 +175,25 @@ $.extend( RowGroup.prototype, {
 	 */
 
 	/**
-	 * Adjust column span when column visibility changes
+	 * Adjust column span or hiding cells when column visibility changes
 	 * @private
 	 */
 	_adjustColspan: function ()
 	{
-		$( 'tr.'+this.c.className, this.s.dt.table().body() ).find('td:visible')
-			.attr( 'colspan', this._colspan() );
+		var dt = this.s.dt;
+
+		$( 'tr.'+this.c.className, this.s.dt.table().body() ).each( function ( undefined, tr ) {
+			var tds = $(tr).children();
+			if ( tds.length === 1 ){
+				tds.attr( 'colspan', this._colspan());
+			}
+			else if ( tds.length > 1 ){
+				tds.each( function ( i, td ) {					
+					$(td).css('display', $(dt.column(i).header()).css('display'));//mimic the display val of the header
+				});
+			}
+		});
+		
 	},
 
 	/**
@@ -342,8 +354,24 @@ $.extend( RowGroup.prototype, {
 						.attr( 'colspan', this._colspan() )
 						.append( display  )
 				);
-		}
+			
+			var displayTr = row.find('> td > tr');
 
+			if ( displayTr.length ){//dont wrap tr td around a tr
+				row = $(displayTr[0]);
+			}			
+		}
+		
+		var tds = $(row).children();
+		if ( tds.length === 1 ){
+			tds.attr( 'colspan', this._colspan());
+		}
+		else if ( tds.length > 1 ){
+			tds.each( function ( i, td ) {
+				$(td).css('display', $(dt.column(i).header()).css('display'));//mimic the display val of the header
+			});
+		}
+		
 		return row
 			.addClass( this.c.className )
 			.addClass( className )
