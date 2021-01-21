@@ -13,7 +13,10 @@ table.dataTable tr.dtrg-group.dtrg-level-0 td {
 }
 
 table.dataTable tr.dtrg-group.dtrg-level-1 td,
-table.dataTable tr.dtrg-group.dtrg-level-2 td {
+table.dataTable tr.dtrg-group.dtrg-level-2 td,
+table.dataTable tr.dtrg-group.dtrg-level-3 td,
+table.dataTable tr.dtrg-group.dtrg-level-4 td,
+table.dataTable tr.dtrg-group.dtrg-level-5 td {
 	background-color: $table-rowgroup-background-level-1;
 	padding-top: 0.25em;
 	padding-bottom: 0.25em;
@@ -23,5 +26,21 @@ table.dataTable tr.dtrg-group.dtrg-level-2 td {
 
 table.dataTable tr.dtrg-group.dtrg-level-2 td {
 	background-color: $table-rowgroup-background-level-2;
+	padding-left: 2.5em;
+}
+
+table.dataTable tr.dtrg-group.dtrg-level-3 td {
+	background-color: $table-rowgroup-background-level-2;
+	padding-left: 3em;
+}
+
+table.dataTable tr.dtrg-group.dtrg-level-4 td {
+	background-color: $table-rowgroup-background-level-2;
+	padding-left: 3.5em;
+}
+
+table.dataTable tr.dtrg-group.dtrg-level-5 td {
+	background-color: $table-rowgroup-background-level-2;
+	padding-left: 4em;
 }
 
