@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" table-class="table table-striped table-bordered" order="3" framework="bootstrap5">
+
+<css lib="datatables rowgroup"/>
+<js lib="jquery datatables rowgroup">
+<![CDATA[
+
+$(document).ready(function() {
+	$('#example').DataTable( {
+		order: [[2, 'asc']],
+		rowGroup: {
+			dataSrc: 2
+		}
+	} );
+} );
+
+]]>
+</js>
+
+<title lib="RowGroup">Bootstrap 5</title>
+
+<info><![CDATA[
+
+This example shows DataTables and the RowGroup extension being used with [Bootstrap 5](http://getbootstrap.com) providing the styling. The DataTables / Bootstrap 5 integration provides seamless integration for DataTables to be used in a Bootstrap 5 page.
+
+]]></info>
+
+</dt-example>
+
