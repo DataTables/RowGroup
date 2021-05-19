@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dt-example table-type="html" order="5" framework="bulma">
+
+<css lib="datatables rowgroup"/>
+<js lib="jquery datatables rowgroup">
+<![CDATA[
+
+$(document).ready(function() {
+	$('#example').DataTable( {
+		order: [[2, 'asc']],
+		rowGroup: {
+			dataSrc: 2
+		}
+	} );
+} );
+
+]]>
+</js>
+
+<title lib="RowGroup">Bulma</title>
+
+<info><![CDATA[
+
+This example shows DataTables and the RowGroup extension being used with the [Bulma](https://bulma.io/) framework providing the styling. The [DataTables / Bulma integration](//datatables.net/manual/styling/bulma) provides seamless integration for DataTables to be used in a Bulma page.
+
+]]></info>
+
+</dt-example>
+
