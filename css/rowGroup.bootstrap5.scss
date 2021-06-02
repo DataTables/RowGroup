@@ -1,2 +1,22 @@
 
 @import 'rowGroup.dataTables.scss';
+
+table.dataTable.table-striped {
+    tr.dtrg-level-0 {
+        td {
+            background-color: #e0e0e0 !important;
+        }
+    }
+    tr.dtrg-level-1 {
+        td {
+            background-color: #f0f0f0 !important;
+        }
+    }
+    tr.odd {
+        background-color: #f9f9f9 !important;
+    }
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    --bs-table-accent-bg: none !important;
+}
