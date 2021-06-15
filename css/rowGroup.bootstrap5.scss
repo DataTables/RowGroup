@@ -3,20 +3,27 @@
 
 table.dataTable.table-striped {
     tr.dtrg-level-0 {
-        td {
-            background-color: #e0e0e0 !important;
-        }
+        background-color: $table-rowgroup-background;
     }
-    tr.dtrg-level-1 {
-        td {
-            background-color: #f0f0f0 !important;
-        }
-    }
-    tr.odd {
-        background-color: #f9f9f9 !important;
-    }
-}
 
-.table-striped>tbody>tr:nth-of-type(odd) {
-    --bs-table-accent-bg: none !important;
+    tr.dtrg-level-1 {
+        background-color: $table-rowgroup-background-level-1;
+    }
+
+    tr.dtrg-level-2,
+    tr.dtrg-level-3,
+    tr.dtrg-level-4,
+    tr.dtrg-level-5 {
+        background-color: $table-rowgroup-background-level-2;
+    }
+
+    tr.dtrg-level-1
+    tr.dtrg-level-2,
+    tr.dtrg-level-3,
+    tr.dtrg-level-4,
+    tr.dtrg-level-5 {
+        td {
+            background-color: transparent;
+        }
+    }
 }
