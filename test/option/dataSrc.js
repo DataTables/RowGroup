@@ -36,7 +36,7 @@ describe('RowGroup - dataSrc', function() {
 			}
 		});
 
-		expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Edinburgh');
+		expect($('#example tbody tr:eq(0) th:eq(0)').html()).toBe('Edinburgh');
 		expect($('#example tbody tr:eq(1) td:eq(0)').html()).toBe('Tiger Nixon');
 		expect($('#example tbody tr').length).toBe(12);
 	});
@@ -50,7 +50,7 @@ describe('RowGroup - dataSrc', function() {
 			}
 		});
 
-		expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Edinburgh');
+		expect($('#example tbody tr:eq(0) th:eq(0)').html()).toBe('Edinburgh');
 		expect($('#example tbody tr:eq(1) td:eq(0)').html()).toBe('Tiger Nixon');
 		expect($('#example tbody tr').length).toBe(12);
 	});
@@ -73,7 +73,7 @@ describe('RowGroup - dataSrc', function() {
 				dataSrc: 'office'
 			},
 			initComplete: function(settings, json) {
-				expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Edinburgh');
+				expect($('#example tbody tr:eq(0) th:eq(0)').html()).toBe('Edinburgh');
 				expect($('#example tbody tr:eq(1) td:eq(0)').html()).toBe('Tiger Nixon');
 				expect($('#example tbody tr').length).toBe(12);
 				done();
@@ -108,7 +108,7 @@ describe('RowGroup - dataSrc', function() {
 		});
 
 		expect($('#example tbody tr:eq(0)').text()).toBe('Edinburgh');
-		expect($('#example tbody tr:eq(1) td:eq(0)').text()).toBe('22');
+		expect($('#example tbody tr:eq(1) th:eq(0)').text()).toBe('22');
 		expect($('#example tbody tr:eq(2) td:eq(0)').text()).toBe('Cedric Kelly');
 
 		expect($('#example tbody tr').length).toBe(21);

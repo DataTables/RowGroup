@@ -27,7 +27,7 @@ describe('RowGroup - rowGroup().enabled()', function() {
 				}
 			});
 
-			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Edinburgh');
+			expect($('#example tbody tr:eq(0) th:eq(0)').html()).toBe('Edinburgh');
 			expect($('#example tbody tr:eq(1) td:eq(0)').html()).toBe('Tiger Nixon');
 			expect(table.rowGroup().enabled()).toBe(true);
 		});
@@ -48,7 +48,7 @@ describe('RowGroup - rowGroup().enabled()', function() {
 				.enable()
 				.draw();
 
-			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Edinburgh');
+			expect($('#example tbody tr:eq(0) th:eq(0)').html()).toBe('Edinburgh');
 			expect($('#example tbody tr:eq(1) td:eq(0)').html()).toBe('Tiger Nixon');
 			expect(table.rowGroup().enabled()).toBe(true);
 		});

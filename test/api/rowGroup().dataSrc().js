@@ -35,7 +35,7 @@ describe('RowGroup - rowGroup().dataSrc()', function() {
 				}
 			});
 
-			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Edinburgh');
+			expect($('#example tbody tr:eq(0) th:eq(0)').html()).toBe('Edinburgh');
 			expect($('#example tbody tr:eq(1) td:eq(0)').html()).toBe('Tiger Nixon');
 		});
 
@@ -49,9 +49,9 @@ describe('RowGroup - rowGroup().dataSrc()', function() {
 				.dataSrc(3)
 				.draw();
 
-			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('61');
+			expect($('#example tbody tr:eq(0) th:eq(0)').html()).toBe('61');
 			expect($('#example tbody tr:eq(1) td:eq(0)').html()).toBe('Tiger Nixon');
-			expect($('#example tbody tr:eq(2) td:eq(0)').html()).toBe('22');
+			expect($('#example tbody tr:eq(2) th:eq(0)').html()).toBe('22');
 			expect($('#example tbody tr:eq(3) td:eq(0)').html()).toBe('Cedric Kelly');
 		});
 
@@ -66,13 +66,13 @@ describe('RowGroup - rowGroup().dataSrc()', function() {
 		it('Setting does not show any difference until redraw', function() {
 			table.rowGroup().dataSrc(0);
 
-			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('61');
+			expect($('#example tbody tr:eq(0) th:eq(0)').html()).toBe('61');
 		});
 
 		it('Setting does not show any difference until redraw', function() {
 			table.draw();
 
-			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Tiger Nixon');
+			expect($('#example tbody tr:eq(0) th:eq(0)').html()).toBe('Tiger Nixon');
 		});
 	});
 });

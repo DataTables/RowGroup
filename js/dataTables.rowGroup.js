@@ -338,8 +338,9 @@ $.extend( RowGroup.prototype, {
 		else {
 			row = $('<tr/>')
 				.append(
-					$('<td/>')
+					$('<th/>')
 						.attr( 'colspan', this._colspan() )
+						.attr( 'scope', 'row' )
 						.append( display  )
 				);
 		}

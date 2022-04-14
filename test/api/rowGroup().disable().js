@@ -27,14 +27,14 @@ describe('RowGroup - rowGroup().disable()', function() {
 				}
 			});
 
-			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Edinburgh');
+			expect($('#example tbody tr:eq(0) th:eq(0)').html()).toBe('Edinburgh');
 			expect($('#example tbody tr:eq(1) td:eq(0)').html()).toBe('Tiger Nixon');
 		});
 
 		it('Does not redraw automatically', function() {
 			table.rowGroup().disable();
 
-			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Edinburgh');
+			expect($('#example tbody tr:eq(0) th:eq(0)').html()).toBe('Edinburgh');
 			expect($('#example tbody tr:eq(1) td:eq(0)').html()).toBe('Tiger Nixon');
 		});
 
