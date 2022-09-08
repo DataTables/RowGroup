@@ -29,8 +29,8 @@ css_frameworks rowGroup $OUT_DIR/css
 
 # Copy JS
 rsync -r js $OUT_DIR
-js_compress $OUT_DIR/js/dataTables.rowGroup.js
-js_frameworks rowGroup $OUT_DIR/js
+js_wrap $OUT_DIR/js/dataTables.rowGroup.js "jquery datatables.net"
+js_frameworks rowGroup $OUT_DIR/js "jquery datatables.net-FW datatables.net-rowgroup"
 
 # Copy Types
 if [ -d $OUT_DIR/types ]; then
