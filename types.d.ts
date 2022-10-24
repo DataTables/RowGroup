@@ -76,7 +76,7 @@ interface ConfigRowGroup {
 	 * 
 	 * @since 1.0.2
 	 */
-	 emptyDataGroup?: string;
+	emptyDataGroup?: string;
 
 	/**
 	 * Provides the ability to disable row grouping at initialisation
