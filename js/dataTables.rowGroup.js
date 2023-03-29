@@ -149,8 +149,20 @@ $.extend( RowGroup.prototype, {
 	 */
 	_adjustColspan: function ()
 	{
-		$( 'tr.'+this.c.className, this.s.dt.table().body() ).find('td:visible')
-			.attr( 'colspan', this._colspan() );
+		var dt = this.s.dt;
+
+		$( 'tr.'+this.c.className, this.s.dt.table().body() ).each( function ( undefined, tr ) {
+			var tds = $(tr).children();
+			if ( tds.length === 1 ){
+				tds.attr( 'colspan', this._colspan());
+			}
+			else if ( tds.length > 1 ){
+				tds.each( function ( i, td ) {					
+					$(td).css('display', $(dt.column(i).header()).css('display'));//mimic the display val of the header
+				});
+			}
+		});
+
 	},
 
 	/**
@@ -289,6 +301,7 @@ $.extend( RowGroup.prototype, {
 	_rowWrap: function ( display, className, level )
 	{
 		var row;
+		var dt = this.s.dt;
 		
 		if ( display === null || display === '' ) {
 			display = this.c.emptyDataGroup;
@@ -305,6 +318,7 @@ $.extend( RowGroup.prototype, {
 			row = display;
 		}
 		else {
+
 			row = $('<tr/>')
 				.append(
 					$('<th/>')
@@ -312,7 +326,25 @@ $.extend( RowGroup.prototype, {
 						.attr( 'scope', 'row' )
 						.append( display  )
 				);
+
+			var displayTr = row.find('> td > tr');
+
+			if ( displayTr.length ){
+				row = $(displayTr[0]);
+			}
+
 		}
+
+		var tds = $(row).children();
+		if ( tds.length === 1 ){
+			tds.attr( 'colspan', this._colspan());
+		}
+		else if ( tds.length > 1 ){
+			tds.each( function ( i, td ) {
+				$(td).css('display', $(dt.column(i).header()).css('display'));//mimic the display val of the header
+			});
+		}
+
 
 		return row
 			.addClass( this.c.className )
