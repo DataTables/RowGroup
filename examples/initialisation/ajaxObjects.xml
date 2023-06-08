@@ -5,26 +5,46 @@
 <js lib="jquery datatables rowgroup">
 <![CDATA[
 
-$(document).ready(function() {
-	$('#example').DataTable( {
-		ajax: '../../../../examples/ajax/data/objects.txt',
-		columns: [
-			{ data: 'name' },
-			{ data: 'position' },
-			{ data: 'office' },
-			{ data: 'extn' },
-			{ data: 'start_date' },
-			{ data: 'salary' }
-		],
-		order: [[2, 'asc']],
-		rowGroup: {
-			dataSrc: 'office'
-		}
-	} );
-} );
+$('#example').DataTable({
+	ajax: '../../../../examples/ajax/data/objects.txt',
+	columns: [
+		{ data: 'name' },
+		{ data: 'position' },
+		{ data: 'office' },
+		{ data: 'extn' },
+		{ data: 'start_date' },
+		{ data: 'salary' }
+	],
+	order: [[2, 'asc']],
+	rowGroup: {
+		dataSrc: 'office'
+	}
+});
 
 ]]>
 </js>
+
+<js-vanilla>
+<![CDATA[
+
+new DataTable('#example', {
+	ajax: '../../../../examples/ajax/data/objects.txt',
+	columns: [
+		{ data: 'name' },
+		{ data: 'position' },
+		{ data: 'office' },
+		{ data: 'extn' },
+		{ data: 'start_date' },
+		{ data: 'salary' }
+	],
+	order: [[2, 'asc']],
+	rowGroup: {
+		dataSrc: 'office'
+	}
+});
+
+]]>
+</js-vanilla>
 
 <title lib="RowGroup">Ajax with objects</title>
 

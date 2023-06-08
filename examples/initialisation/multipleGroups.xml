@@ -12,21 +12,46 @@ tr.even td:first-child {
 <js lib="jquery datatables rowgroup">
 <![CDATA[
 
-$(document).ready(function() {
-	$('#example').DataTable( {
-		order: [[2, 'asc'], [1, 'asc']],
-		rowGroup: {
-			dataSrc: [ 2, 1 ]
-		},
-		columnDefs: [ {
-			targets: [ 1, 2 ],
+$('#example').DataTable({
+	order: [
+		[2, 'asc'],
+		[1, 'asc']
+	],
+	rowGroup: {
+		dataSrc: [2, 1]
+	},
+	columnDefs: [
+		{
+			targets: [1, 2],
 			visible: false
-		} ]
-	} );
-} );
+		}
+	]
+});
 
 ]]>
 </js>
+
+<js-vanilla>
+<![CDATA[
+
+new DataTable('#example', {
+	order: [
+		[2, 'asc'],
+		[1, 'asc']
+	],
+	rowGroup: {
+		dataSrc: [2, 1]
+	},
+	columnDefs: [
+		{
+			targets: [1, 2],
+			visible: false
+		}
+	]
+});
+
+]]>
+</js-vanilla>
 
 <title lib="RowGroup">Multi-level grouping</title>
 

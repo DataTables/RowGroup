@@ -5,17 +5,28 @@
 <js lib="jquery semanticui datatables rowgroup">
 <![CDATA[
 
-$(document).ready(function() {
-	$('#example').DataTable( {
-		order: [[2, 'asc']],
-		rowGroup: {
-			dataSrc: 2
-		}
-	} );
-} );
+$('#example').DataTable({
+	order: [[2, 'asc']],
+	rowGroup: {
+		dataSrc: 2
+	}
+});
 
 ]]>
 </js>
+
+<js-vanilla>
+<![CDATA[
+
+new DataTable('#example', {
+	order: [[2, 'asc']],
+	rowGroup: {
+		dataSrc: 2
+	}
+});
+
+]]>
+</js-vanilla>
 
 <title lib="RowGroup">Fomantic-UI (formally Semantic-UI) styling</title>
 

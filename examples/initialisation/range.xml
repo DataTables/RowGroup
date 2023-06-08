@@ -10,20 +10,36 @@ table.dataTable tr.group-end td {
 <js lib="jquery datatables rowgroup">
 <![CDATA[
 
-$(document).ready(function() {
-	$('#example').DataTable( {
-		order: [[3, 'asc']],
-		rowGroup: {
-			dataSrc: function ( row ) {
-				var base = Math.floor(row[3] / 10);
-				return "" + base + "0 - " + base + '9';
-			}
+$('#example').DataTable({
+	order: [[3, 'asc']],
+	rowGroup: {
+		dataSrc: function (row) {
+			var base = Math.floor(row[3] / 10);
+
+			return base + '0 - ' + base + '9';
 		}
-	} );
-} );
+	}
+});
 
 ]]>
 </js>
+
+<js-vanilla>
+<![CDATA[
+
+new DataTable('#example', {
+	order: [[3, 'asc']],
+	rowGroup: {
+		dataSrc: row => {
+			let base = Math.floor(row[3] / 10);
+
+			return base + '0 - ' + base + '9';
+		}
+	}
+});
+
+]]>
+</js-vanilla>
 
 <title lib="RowGroup">Group with a range of values</title>
 

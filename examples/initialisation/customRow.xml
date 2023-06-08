@@ -5,40 +5,90 @@
 <js lib="jquery datatables rowgroup">
 <![CDATA[
 
-$(document).ready(function() {
-	$('#example').DataTable( {
-		order: [[2, 'asc']],
-		rowGroup: {
-			startRender: null,
-			endRender: function ( rows, group ) {
-				var salaryAvg = rows
+$('#example').DataTable({
+	order: [[2, 'asc']],
+	rowGroup: {
+		startRender: null,
+		endRender: function (rows, group) {
+			var salaryAvg =
+				rows
 					.data()
 					.pluck(5)
-					.reduce( function (a, b) {
-						return a + b.replace(/[^\d]/g, '')*1;
+					.reduce(function (a, b) {
+						return a + b.replace(/[^\d]/g, '') * 1;
 					}, 0) / rows.count();
-				salaryAvg = $.fn.dataTable.render.number(',', '.', 0, '$').display( salaryAvg );
 
-				var ageAvg = rows
+			// Use DataTable's number formatter
+			salaryAvg = DataTable.render.number(null, null, 0, '$').display(salaryAvg);
+
+			var ageAvg =
+				rows
 					.data()
 					.pluck(3)
-					.reduce( function (a, b) {
-						return a + b*1;
+					.reduce(function (a, b) {
+						return a + b * 1;
 					}, 0) / rows.count();
 
-				return $('<tr/>')
-					.append( '<td colspan="3">Averages for '+group+'</td>' )
-					.append( '<td>'+ageAvg.toFixed(0)+'</td>' )
-					.append( '<td/>' )
-					.append( '<td>'+salaryAvg+'</td>' );
-			},
-			dataSrc: 2
-		}
-	} );
-} );
+			return $('<tr/>')
+				.append('<td colspan="3">Averages for ' + group + '</td>')
+				.append('<td>' + ageAvg.toFixed(0) + '</td>')
+				.append('<td/>')
+				.append('<td>' + salaryAvg + '</td>');
+		},
+		dataSrc: 2
+	}
+});
 
 ]]>
 </js>
+
+<js-vanilla>
+<![CDATA[
+
+function addCell(tr, content, colSpan = 1) {
+	let td = document.createElement('th');
+
+	td.colSpan = colSpan;
+	td.textContent = content;
+
+	tr.appendChild(td);
+}
+
+new DataTable('#example', {
+	order: [[2, 'asc']],
+	rowGroup: {
+		startRender: null,
+		endRender: function (rows, group) {
+			let salaryAvg =
+				rows
+					.data()
+					.pluck(5)
+					.reduce((a, b) => a + b.replace(/[^\d]/g, '') * 1, 0) / rows.count();
+
+			// Use DataTable's number formatter
+			salaryAvg = DataTable.render.number(null, null, 0, '$').display(salaryAvg);
+
+			let ageAvg =
+				rows
+					.data()
+					.pluck(3)
+					.reduce((a, b) => a + b * 1, 0) / rows.count();
+
+			let tr = document.createElement('tr');
+
+			addCell(tr, 'Averages for ' + group, 3);
+			addCell(tr, ageAvg.toFixed(0));
+			addCell(tr, '');
+			addCell(tr, salaryAvg);
+
+			return tr;
+		},
+		dataSrc: 2
+	}
+});
+
+]]>
+</js-vanilla>
 
 <title lib="RowGroup">Custom row rendering / aggregates</title>
 
@@ -46,7 +96,7 @@ $(document).ready(function() {
 
 When displaying grouping rows with RowGroup, you aren't limited to just a single cell of data spanning the entire width of the table - you can insert a row that makes use of the columns defined in the host table by returning either a `-tag tr` element with the data you want to show, or a jQuery object containing that row.
 
-This example demonstrates using jQuery to create a grouping row that contains aggregate data which aligns with the host table's columns, making it quick and easy for the end user to understand a summary of that data.
+This example demonstrates the creation a grouping row that contains aggregate data which aligns with the host table's columns, making it quick and easy for the end user to understand a summary of that data.
 
 ]]></info>
 

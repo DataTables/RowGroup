@@ -5,21 +5,36 @@
 <js lib="jquery datatables rowgroup">
 <![CDATA[
 
-$(document).ready(function() {
-	$('#example').DataTable( {
-		order: [[2, 'asc']],
-		rowGroup: {
-			startRender: null,
-			endRender: function ( rows, group ) {
-				return group +' ('+rows.count()+')';
-			},
-			dataSrc: 2
-		}
-	} );
-} );
+$('#example').DataTable({
+	order: [[2, 'asc']],
+	rowGroup: {
+		startRender: null,
+		endRender: function (rows, group) {
+			return group + ' (' + rows.count() + ')';
+		},
+		dataSrc: 2
+	}
+});
 
 ]]>
 </js>
+
+<js-vanilla>
+<![CDATA[
+
+new DataTable('#example', {
+	order: [[2, 'asc']],
+	rowGroup: {
+		startRender: null,
+		endRender: function (rows, group) {
+			return group + ' (' + rows.count() + ')';
+		},
+		dataSrc: 2
+	}
+});
+
+]]>
+</js-vanilla>
 
 <title lib="RowGroup">End grouping only</title>
 

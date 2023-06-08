@@ -5,17 +5,28 @@
 <js lib="jquery datatables rowgroup">
 <![CDATA[
 
-$(document).ready(function() {
-	$('#example').DataTable( {
-		orderFixed: [2, 'asc'],
-		rowGroup: {
-			dataSrc: 2
-		}
-	} );
-} );
+$('#example').DataTable({
+	orderFixed: [2, 'asc'],
+	rowGroup: {
+		dataSrc: 2
+	}
+});
 
 ]]>
 </js>
+
+<js-vanilla>
+<![CDATA[
+
+new DataTable('#example', {
+	orderFixed: [2, 'asc'],
+	rowGroup: {
+		dataSrc: 2
+	}
+});
+
+]]>
+</js-vanilla>
 
 <title lib="RowGroup">Fixed ordering</title>
 
