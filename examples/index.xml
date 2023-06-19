@@ -3,6 +3,7 @@
 
 <title lib="RowGroup">RowGroup for DataTables</title>
 
+<js lib="jquery" />
 <info><![CDATA[
 
 The RowGroup extension for DataTables provides an easy to use row grouping feature for DataTables. The examples shown here demonstrate how it can be used, configured and styled.
