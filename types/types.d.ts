@@ -32,7 +32,7 @@ declare module 'datatables.net' {
 		rowGroup(): ApiRowGroup<T>;
 	}
 
-	interface ApiStatic {
+	interface DataTablesStatic {
 		/**
 		 * RowGroup class
 		 */
