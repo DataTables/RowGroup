@@ -40,7 +40,7 @@ declare module 'datatables.net' {
 			/**
 			 * Create a new RowGroup instance for the target DataTable
 			 */
-			new (dt: Api<any>, settings: boolean | ConfigRowGroup);
+			new (dt: Api<any>, settings: boolean | ConfigRowGroup): void;
 
 			/**
 			 * Default configuration values
