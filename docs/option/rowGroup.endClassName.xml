@@ -19,13 +19,11 @@
 	</description>
 
 	<example title="Set a custom class name"><![CDATA[
-
-$('#myTable').DataTable( {
+new DataTable('#myTable', {
 	rowGroup: {
 		startClassName: 'table-end-group'
 	}
-} );
-
+});
 ]]></example>
 
 </dt-option>

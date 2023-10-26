@@ -42,48 +42,47 @@
 	</description>
 
 	<example title="Show the number of rows in the group along with the group data value"><![CDATA[
-
-$('#myTable').DataTable( {
+new DataTable('#myTable', {
 	rowGroup: {
-		endRender: function ( rows, group ) {
-			return group +' ('+rows.count()+' rows)';
+		endRender: function (rows, group) {
+			return group + ' (' + rows.count() + ' rows)';
 		}
 	}
-} );
-
+});
 ]]></example>
 
 	<example title="Disable the start grouping row"><![CDATA[
-
-$('#myTable').DataTable( {
+new DataTable('#myTable', {
 	rowGroup: {
 		startRender: null,
-		endRender: function ( rows, group ) {
-			return group +' ('+rows.count()+' rows)';
+		endRender: function (rows, group) {
+			return group + ' (' + rows.count() + ' rows)';
 		}
 	}
-} );
-
+});
 ]]></example>
 
 	<example title="Show aggregate data in the footer"><![CDATA[
-
-$('#myTable').DataTable( {
+new DataTable('#myTable', {
 	rowGroup: {
-		endRender: function ( rows, group ) {
-			var avg = rows
-				.data()
-				.pluck('salary')
-				.reduce( function (a, b) {
-					return a + b.replace(/[^\d]/g, '')*1;
-				}, 0) / rows.count();
+		endRender: function (rows, group) {
+			var avg =
+				rows
+					.data()
+					.pluck('salary')
+					.reduce(function (a, b) {
+						return a + b.replace(/[^\d]/g, '') * 1;
+					}, 0) / rows.count();
 
-			return 'Average salary in '+group+': '+
-				$.fn.dataTable.render.number(',', '.', 0, '$').display( avg );
+			return (
+				'Average salary in ' +
+				group +
+				': ' +
+				DataTable.render.number(',', '.', 0, '$').display(avg)
+			);
 		}
 	}
-} );
-
+});
 ]]></example>
 
 </dt-option>

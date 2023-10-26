@@ -19,7 +19,9 @@ $('#example').DataTable({
 					}, 0) / rows.count();
 
 			// Use DataTable's number formatter
-			salaryAvg = DataTable.render.number(null, null, 0, '$').display(salaryAvg);
+			salaryAvg = DataTable.render
+				.number(null, null, 0, '$')
+				.display(salaryAvg);
 
 			var ageAvg =
 				rows
@@ -66,7 +68,9 @@ new DataTable('#example', {
 					.reduce((a, b) => a + b.replace(/[^\d]/g, '') * 1, 0) / rows.count();
 
 			// Use DataTable's number formatter
-			salaryAvg = DataTable.render.number(null, null, 0, '$').display(salaryAvg);
+			salaryAvg = DataTable.render
+				.number(null, null, 0, '$')
+				.display(salaryAvg);
 
 			let ageAvg =
 				rows

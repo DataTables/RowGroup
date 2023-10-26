@@ -29,26 +29,19 @@
 	</description>
 
 	<example title="Set an object property name as the data source for grouping information"><![CDATA[
-
-$('#myTable').DataTable( {
+new DataTable('#myTable', {
 	rowGroup: {
 		dataSrc: 'group'
 	}
-} );
-
+});
 ]]></example>
 
 	<example title="Nested data"><![CDATA[
-
-$('#myTable').DataTable( {
+new DataTable('#myTable', {
 	rowGroup: {
-		dataSrc: [
-			'group',
-			'date'
-		]
+		dataSrc: ['group', 'date']
 	}
-} );
-
+});
 ]]></example>
 
 </dt-option>

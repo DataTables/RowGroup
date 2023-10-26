@@ -20,13 +20,14 @@
 	</description>
 
 	<example title="Disable row grouping"><![CDATA[
-
-var table = $('#example').DataTable( {
+var table = new DataTable('#myTable', {
 	rowGroup: true
-} );
+});
 
-table.rowGroup().disable().draw();
-
+table
+	.rowGroup()
+	.disable()
+	.draw();
 ]]></example>
 
 	<related>-init rowGroup.enable</related>

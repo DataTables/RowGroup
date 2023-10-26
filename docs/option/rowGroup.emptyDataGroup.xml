@@ -19,22 +19,18 @@
 	</description>
 
 	<example title="Set a custom group message"><![CDATA[
-
-$('#myTable').DataTable( {
+new DataTable('#myTable', {
 	rowGroup: {
 		emptyDataGroup: 'No categories assigned yet'
 	}
-} );
-
+});
 ]]></example>
 
 	<example title="Show no grouping row"><![CDATA[
-
-$('#myTable').DataTable( {
+new DataTable('#myTable', {
 	rowGroup: {
 		emptyDataGroup: null
 	}
-} );
-
+});
 ]]></example>
 </dt-option>

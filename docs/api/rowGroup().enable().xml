@@ -26,15 +26,16 @@
 	</description>
 
 	<example title="Enable row grouping"><![CDATA[
-
-var table = $('#example').DataTable( {
+var table = new DataTable('#myTable', {
 	rowGroup: {
 		enable: false
 	}
-} );
+});
 
-table.rowGroup().enable().draw();
-
+table
+	.rowGroup()
+	.enable()
+	.draw();
 ]]></example>
 
 	<related>-init rowGroup.enable</related>

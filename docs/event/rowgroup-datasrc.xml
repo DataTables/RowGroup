@@ -25,11 +25,9 @@
 	</description>
 
 	<example title="Change the fixed ordering when the data source is updated"><![CDATA[
-
-table.on( 'rowgroup-datasrc', function ( e, dt, val ) {
-	table.order.fixed( {pre: [[ val, 'asc' ]]} ).draw();
-} );
-
+table.on('rowgroup-datasrc', function (e, dt, val) {
+	table.order.fixed({ pre: [[val, 'asc']] }).draw();
+});
 ]]></example>
 
 	<related>-init rowGroup.dataSrc</related>

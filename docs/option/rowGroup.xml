@@ -31,21 +31,17 @@
 	</description>
 
 	<example title="Enable row grouping"><![CDATA[
-
-$('#myTable').DataTable( {
+new DataTable('#myTable', {
 	rowGroup: true
-} );
-
+});
 ]]></example>
 
 	<example title="Enable row grouping with a grouping data property specified"><![CDATA[
-
-$('#myTable').DataTable( {
+new DataTable('#myTable', {
 	rowGroup: {
 		dataSrc: 'group'
 	}
-} );
-
+});
 ]]></example>
 
 </dt-option>

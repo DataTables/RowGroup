@@ -30,7 +30,7 @@ $('#example').DataTable({
 new DataTable('#example', {
 	order: [[3, 'asc']],
 	rowGroup: {
-		dataSrc: row => {
+		dataSrc: (row) => {
 			let base = Math.floor(row[3] / 10);
 
 			return base + '0 - ' + base + '9';

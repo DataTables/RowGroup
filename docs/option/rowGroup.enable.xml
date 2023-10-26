@@ -19,13 +19,11 @@
 	</description>
 
 	<example title="Disable row grouping during initialisation"><![CDATA[
-
-$('#myTable').DataTable( {
+new DataTable('#myTable', {
 	rowGroup: {
 		enable: false
 	}
-} );
-
+});
 ]]></example>
 
 </dt-option>

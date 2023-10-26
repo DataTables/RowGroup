@@ -42,15 +42,13 @@
 	</description>
 
 	<example title="Show the number of rows in the group along with the group data value"><![CDATA[
-
-$('#myTable').DataTable( {
+new DataTable('#myTable', {
 	rowGroup: {
-		startRender: function ( rows, group ) {
-			return group +' ('+rows.count()+' rows)';
+		startRender: function (rows, group) {
+			return group + ' (' + rows.count() + ' rows)';
 		}
 	}
-} );
-
+});
 ]]></example>
 
 </dt-option>

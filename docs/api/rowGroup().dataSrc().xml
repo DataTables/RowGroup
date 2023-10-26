@@ -38,25 +38,23 @@
 	</description>
 
 	<example title="Change the data source based on a data point, allowing the end user to easily change between groupings"><![CDATA[
-
-var table = $('#example').DataTable( {
+var table = new DataTable('#myTable', {
 	orderFixed: [[2, 'asc']],
 	rowGroup: {
 		dataSrc: 2
 	}
-} );
+});
 
 // Change the fixed ordering when the data source is updated
-table.on( 'rowgroup-datasrc', function ( e, dt, val ) {
-	table.order.fixed( {pre: [[ val, 'asc' ]]} ).draw();
-} );
+table.on('rowgroup-datasrc', function (e, dt, val) {
+	table.order.fixed({ pre: [[val, 'asc']] }).draw();
+});
 
-$('a.group-by').on( 'click', function (e) {
+$('a.group-by').on('click', function (e) {
 	e.preventDefault();
 
-	table.rowGroup().dataSrc( $(this).data('column') );
-} );
-
+	table.rowGroup().dataSrc($(this).data('column'));
+});
 ]]></example>
 
 	<related>-init rowGroup.dataSrc</related>
