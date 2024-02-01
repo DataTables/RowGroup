@@ -16,6 +16,22 @@
 		</description>
 	</type>
 
+	<type type="function" since="1.5.0">
+		<description>
+			As a function this option provides the ability to customise the grouping logic using the data from each row. The function is called in order for the rows being displayed in the table.
+		</description>
+		<signature>dataSrc( rowData, level )</signature>
+		<parameter type="array|object" name="rowData">
+			The original data object for the row being checked
+		</parameter>
+		<parameter type="integer" name="level">
+			The grouping level. Starts at index 0 and for each grouping level defined increments by one.
+		</parameter>
+		<returns type="string|null">
+			The group name that this row should fall into.
+		</returns>
+	</type>
+
 	<default value="0"/>
 
 	<description>
