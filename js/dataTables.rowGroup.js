@@ -1,11 +1,11 @@
-/*! RowGroup 1.5.0
+/*! RowGroup 1.6.0
  * © SpryMedia Ltd - datatables.net/license
  */
 
 /**
  * @summary     RowGroup
- * @description RowGrouping for DataTables
- * @version     1.5.0
+ * @description RowGrouping and data aggregation for DataTables
+ * @version     1.6.0
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     datatables.net
  * @copyright   SpryMedia Ltd.
@@ -68,6 +68,81 @@ $.extend(RowGroup.prototype, {
 		this.c.dataSrc = val;
 
 		$(dt.table().node()).triggerHandler('rowgroup-datasrc.dt', [dt, val]);
+
+		return this;
+	},
+
+	/**
+	 * Get/set padding left value (default) - need to call draw after this is
+	 * executed as a setter
+	 * @returns string~RowGroup
+	 */
+	aggPaddingLeft: function (val) {
+		if (val === undefined) {
+			return this.c.aggPaddingLeft;
+		}
+
+		this.c.aggPaddingLeft = val;
+
+		return this;
+	},
+
+	/**
+	 * Get/set padding right value (default) - need to call draw after this is
+	 * executed as a setter
+	 * @returns string~RowGroup
+	 */
+	aggPaddingRight: function (val) {
+		if (val === undefined) {
+			return this.c.aggPaddingRight;
+		}
+
+		this.c.aggPaddingRight = val;
+
+		return this;
+	},
+
+	/**
+	 * Get/set text alignment (default) - need to call draw after this is
+	 * executed as a setter
+	 * @returns string~RowGroup
+	 */
+	aggTextAlign: function (val) {
+		if (val === undefined) {
+			return this.c.aggTextAlign;
+		}
+
+		this.c.aggTextAlign = val;
+
+		return this;
+	},
+
+	/**
+	 * Get/set number of displayed decimal places (default) - need to call draw after this is
+	 * executed as a setter
+	 * @returns string~integer~RowGroup
+	 */
+	aggDecimalPlaces: function (val) {
+		if (val === undefined) {
+			return this.c.aggDecimalPlaces;
+		}
+
+		this.c.aggDecimalPlaces = val;
+
+		return this;
+	},
+
+	/**
+	 * Get/set whether to show trailing zeros (default) - need to call draw after this is
+	 * executed as a setter
+	 * @returns boolean~RowGroup
+	 */
+	aggShowTrailingZeros: function (val) {
+		if (val === undefined) {
+			return this.c.aggShowTrailingZeros;
+		}
+
+		this.c.aggShowTrailingZeros = val;
 
 		return this;
 	},
@@ -240,9 +315,37 @@ $.extend(RowGroup.prototype, {
 			var row;
 			var rows = group.rows;
 
+			// Aggregation logic
+			var aggregation = {
+				values: {},
+				skipped: []
+			};
+
+			for(var colIndex = 0; colIndex < dt.columns()[0].length; colIndex++) {
+				var column = dt.column(colIndex);
+				var columnSettings = column.settings()[0].aoColumns[colIndex];
+				var aggValue;
+
+				if (!columnSettings.bVisible) {
+					aggregation.skipped.push(colIndex);
+					continue;
+				}
+
+				var aggFunc = columnSettings.aggFunc;
+				if (aggFunc) {
+					var decimalPlaces = columnSettings.aggDecimalPlaces ?? this.c.aggDecimalPlaces;
+					var showTrailingZeros = columnSettings.aggShowTrailingZeros ?? this.c.aggShowTrailingZeros;
+
+					aggValue = this._aggregateData(rows, aggFunc, colIndex, decimalPlaces, showTrailingZeros);
+					if (aggValue !== null) {
+						aggregation.values[colIndex] = aggValue;
+					}
+				}
+			}
+
 			if (this.c.startRender) {
 				display = this.c.startRender.call(this, dt.rows(rows), groupName, level);
-				row = this._rowWrap(display, this.c.startClassName, level);
+				row = this._rowWrap(display, this.c.startClassName, level, aggregation);
 
 				if (row) {
 					row.insertBefore(dt.row(rows[0]).node());
@@ -251,7 +354,7 @@ $.extend(RowGroup.prototype, {
 
 			if (this.c.endRender) {
 				display = this.c.endRender.call(this, dt.rows(rows), groupName, level);
-				row = this._rowWrap(display, this.c.endClassName, level);
+				row = this._rowWrap(display, this.c.endClassName, level, aggregation);
 
 				if (row) {
 					row.insertAfter(dt.row(rows[rows.length - 1]).node());
@@ -269,11 +372,12 @@ $.extend(RowGroup.prototype, {
 	 * as a row, by wrapping it in a row, or detecting that it is a row.
 	 * @param {node|jQuery|string} display Display value
 	 * @param {string} className Class to add to the row
-	 * @param {array} group
-	 * @param {number} group level
+	 * @param {number} level
+	 * @param {object[]} aggregation Object containing aggregation results
 	 * @private
 	 */
-	_rowWrap: function (display, className, level) {
+	_rowWrap: function (display, className, level, aggregation = null) {
+		var dt = this.s.dt;
 		var row;
 
 		if (display === null || display === '') {
@@ -298,6 +402,79 @@ $.extend(RowGroup.prototype, {
 		) {
 			row = display;
 		}
+		else if (aggregation && !$.isEmptyObject(aggregation.values)) {
+			row = $('<tr/>');
+			var lastColIndex = -1;
+			var th;
+
+			var gapWidth;
+			var skippedCount;
+			var emptyColspan;
+
+			var groupNameAdded = false;
+
+			// Check every column if it has an aggregation value
+			for (var [colIndex, aggValue] of Object.entries(aggregation.values)) {
+				if (aggValue !== null) {
+					colIndex = parseInt(colIndex); // Convert colIndex to integer
+
+					// If there is a gap between columns with aggregation values, append empty th
+					if ((lastColIndex + 1) !== colIndex) {
+						gapWidth = colIndex - lastColIndex - 1;
+						skippedCount = aggregation.skipped.filter(index => index > lastColIndex && index < colIndex).length;
+						emptyColspan = gapWidth - skippedCount;
+
+						if (emptyColspan > 0) {
+							th = $('<th/>').attr('scope', 'row');
+							// Adding colspan only if emptyColspan greater than 1, otherwise it's redundant
+							if (emptyColspan > 1) {
+								th.attr('colspan', emptyColspan);
+							}
+							// Add group name to first available th element
+							if (!groupNameAdded) {
+								th.append(display);
+								groupNameAdded = true;
+							}
+
+							row.append(th);
+						}
+					}
+
+					// Append the aggregation value
+					row.append(
+						$('<th/>').attr('scope', 'row').css({
+							'text-align': this.c.aggTextAlign,
+							'padding-left': this.c.aggPaddingLeft,
+							'padding-right': this.c.aggPaddingRight,
+						}).append(aggValue)
+					);
+
+					lastColIndex = colIndex;
+				}
+			}
+
+			// Append trailing th element if needed at the end
+			if (lastColIndex < dt.columns()[0].length - 1) {
+				gapWidth = dt.columns.length - lastColIndex - 1;
+				skippedCount = aggregation.skipped.filter(index => index > lastColIndex).length;
+				emptyColspan = gapWidth - skippedCount;
+
+				if (emptyColspan > 0) {
+					th = $('<th/>').attr('scope', 'row');
+					// Adding colspan only if emptyColspan greater than 1, otherwise it's redundant
+					if (emptyColspan > 1) {
+						th.attr('colspan', emptyColspan);
+					}
+					// Add group name to th element if not already added
+					if (!groupNameAdded) {
+						th.append(display);
+						groupNameAdded = true;
+					}
+
+					row.append(th);
+				}
+			}
+		}
 		else {
 			row = $('<tr/>').append(
 				$('<th/>').attr('colspan', this._colspan()).attr('scope', 'row').append(display)
@@ -308,6 +485,74 @@ $.extend(RowGroup.prototype, {
 			.addClass(this.c.className)
 			.addClass(className)
 			.addClass('dtrg-level-' + level);
+	},
+
+	/**
+	 * Get the aggregation result for a data set (index) of rows
+	 * @param {DataTables.Api} rows API of the rows to consider for this aggregation
+	 * @param {string|function} aggFunc name of aggregation function or custom function provided by the user
+	 * @param {number} colIndex index of the column to aggregate
+	 * @param {number} decimalPlaces number of decimal places to round to
+	 * @param {boolean} showTrailingZeros whether to show trailing zeros in the result
+	 * @returns {number|*} result of the aggregation
+	 * @private
+	 */
+	_aggregateData: function(rows, aggFunc, colIndex, decimalPlaces = 2, showTrailingZeros = false) {
+		var dt = this.s.dt;
+		var columnKey = dt.settings()[0].aoColumns[colIndex].data;
+
+		var data = dt.rows(rows).data().toArray();
+		var result;
+
+		if (typeof aggFunc === 'function') {
+			// User defined aggregation function, can return any value
+			result = aggFunc( data.map((row) => row[columnKey]) );
+		} else {
+			// Predefined aggregation functions
+			switch (aggFunc) {
+				case 'avg':
+					var sum = data.reduce((acc, row) => {
+						var value = parseFloat(row[columnKey]);
+						return acc + (isNaN(value) ? 0 : value);
+					}, 0);
+					result = sum / data.length;
+					break;
+				case 'sum':
+					result = data.reduce((acc, row) => {
+						var value = parseFloat(row[columnKey]);
+						return acc + (isNaN(value) ? 0 : value);
+					}, 0);
+					break;
+				case 'count':
+					result = data.length;
+					break;
+				case 'max':
+					result = data.reduce((acc, row) => {
+						var value = parseFloat(row[columnKey]);
+						if (isNaN(value)) return acc;
+						return acc === null || value > acc ? value : acc;
+					}, null);
+					break;
+				case 'min':
+					result = data.reduce((acc, row) => {
+						var value = parseFloat(row[columnKey]);
+						if (isNaN(value)) return acc;
+						return acc === null || value < acc ? value : acc;
+					}, null);
+					break;
+				default:
+					result = null;
+			}
+		}
+
+		if (!isNaN(parseFloat(result))) {
+			result = parseFloat(result).toFixed(decimalPlaces);
+			if (!showTrailingZeros) {
+				result = parseFloat(result);
+			}
+		}
+
+		return result;
 	}
 });
 
@@ -368,10 +613,40 @@ RowGroup.defaults = {
 	 */
 	startRender: function (rows, group) {
 		return group;
-	}
+	},
+
+	/**
+	 * Grouping aggregation left padding value
+	 * @type string
+	 */
+	aggPaddingLeft: '10px',
+
+	/**
+	 * Grouping aggregation right padding value
+	 * @type string
+	 */
+	aggPaddingRight: '10px',
+
+	/**
+	 * Grouping aggregation default text alignment - can be redefined for each column as well
+	 * @type string
+	 */
+	aggTextAlign: 'center',
+
+	/**
+	 * Grouping aggregation default decimal places count - can be redefined for each column as well
+	 * @type string|integer
+	 */
+	aggDecimalPlaces: 2,
+
+	/**
+	 * Defines whether the aggregated values should show trailing zeros or not - can be redefined for each column as well
+	 * @type boolean
+	 */
+	aggShowTrailingZeros: false
 };
 
-RowGroup.version = '1.5.0';
+RowGroup.version = '1.6.0';
 
 $.fn.dataTable.RowGroup = RowGroup;
 $.fn.DataTable.RowGroup = RowGroup;
