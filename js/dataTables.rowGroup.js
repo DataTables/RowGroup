@@ -109,10 +109,17 @@ $.extend(RowGroup.prototype, {
 		var that = this;
 		var dt = this.s.dt;
 		var hostSettings = dt.settings()[0];
+		var scroller = $('div.dt-scroll-body', dt.table().container());
 
 		dt.on('draw.dtrg', function (e, s) {
 			if (that.c.enable && hostSettings === s) {
 				that._draw();
+
+				// Restore scrolling position if set and paging wasn't reset
+				if (scrollTop && scroller.scrollTop()) {
+					scroller.scrollTop(scrollTop);
+					scrollTop = null;
+				}
 			}
 		});
 
@@ -123,6 +130,20 @@ $.extend(RowGroup.prototype, {
 		dt.on('destroy', function () {
 			dt.off('.dtrg');
 		});
+
+		// When scrolling is enabled, when adding grouping rows above the scrolling view
+		// port, the browser (both FF and Chrome) will put the element in and adjust the
+		// scrollTop so that it doesn't move the current viewport. This isn't what we
+		// want since prior to the draw the grouping elements were in place, but they then
+		// are removed and reinserted. So we need to shift the scrollTop back to what it
+		// was!
+		var scrollTop = null;
+
+		if (scroller.length) {
+			dt.on('preDraw', function () {
+				scrollTop = scroller.scrollTop();
+			});
+		}
 	},
 
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
