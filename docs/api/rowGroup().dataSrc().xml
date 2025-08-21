@@ -10,7 +10,7 @@
 		<description>
 			Get the property currently being used as the grouping data source.
 		</description>
-		<returns type="number|string|array">Data source property</returns>
+		<returns type="number|string|array">The data point (property or index) in the data source object or array for the row's data.</returns>
 	</type>
 
 	<type type="function">
@@ -33,6 +33,8 @@
 		Note that the data source property does not need to be used in the DataTable as a column - particularly when objects are used as the data source, however, it can sometimes be useful to have the data in a column to allow sorting by that data point.
 
 		When this method is used as a setter it will trigger the `-event rowgroup-datasrc` event, allowing listeners to modify the DataTable settings based on the new grouping data source.
+
+		As of RowGroup 1.6.0, if this method is used on a DataTable that was not initialised with a `rowGroup` property, RowGroup will be initialised and enabled automatically. This provides the flexibility of starting the DataTable without grouping and then enabling it.
 
 		Please note that the visual effect for grouping data point being changed is not shown until the DataTable is redrawn. This would typically be done by calling the `-api draw()` method.
 	</description>

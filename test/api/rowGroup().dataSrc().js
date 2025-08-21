@@ -75,4 +75,25 @@ describe('RowGroup - rowGroup().dataSrc()', function() {
 			expect($('#example tbody tr:eq(0) th:eq(0)').html()).toBe('Tiger Nixon');
 		});
 	});
+
+	describe('Initialising RowGroup', function() {
+		dt.html('basic');
+
+		it('DataTable without grouping', function() {
+			table = $('#example').DataTable({
+				order: [[2, 'asc']]
+			});
+
+			expect($('#example tbody tr:eq(0) td:eq(0)').html()).toBe('Tiger Nixon');
+			expect($('#example tbody tr:eq(1) td:eq(0)').html()).toBe('Cedric Kelly');
+		});
+
+		it('Dynamic initialisation via the API', function() {
+			table.rowGroup().dataSrc(2).draw();
+
+			expect($('#example tbody tr:eq(0) th:eq(0)').html()).toBe('Edinburgh');
+			expect($('#example tbody tr:eq(1) td:eq(0)').html()).toBe('Tiger Nixon');
+			expect($('#example tbody tr:eq(2) td:eq(0)').html()).toBe('Cedric Kelly');
+		});
+	});
 });
