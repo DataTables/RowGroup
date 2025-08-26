@@ -155,9 +155,15 @@ $.extend(RowGroup.prototype, {
 	 * @private
 	 */
 	_adjustColspan: function () {
-		$('tr.' + this.c.className, this.s.dt.table().body())
-			.find('th:visible, td:visible')
-			.attr('colspan', this._colspan());
+		let cells = $('tr.' + this.c.className, this.s.dt.table().body())
+			.find('th:visible, td:visible');
+
+		// Only perform the adjust if there is a single cell. If there is more the renderer must
+		// have returned multiple cells and it is the responsibility of the rendering function to
+		// get the number of cells right.
+		if (cells.length === 1) {
+			cells.attr('colspan', this._colspan());
+		}
 	},
 
 	/**
@@ -434,7 +440,8 @@ DataTable.Api.register('rowGroup().enabled()', function () {
 
 DataTable.Api.register('rowGroup().dataSrc()', function (val) {
 	if (val === undefined) {
-		return this.context[0].rowGroup.dataSrc();
+		let s = this.context[0].rowGroup;
+		return s ? s.dataSrc() : [];
 	}
 
 	return this.iterator('table', function (ctx) {
