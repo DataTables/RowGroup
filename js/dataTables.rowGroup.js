@@ -21,9 +21,9 @@
  */
 
 var RowGroup = function (dt, opts) {
-	// Sanity check that we are using DataTables 1.10 or newer
-	if (!DataTable.versionCheck || !DataTable.versionCheck('1.11')) {
-		throw 'RowGroup requires DataTables 1.11 or newer';
+	// Sanity check
+	if (!DataTable.versionCheck || !DataTable.versionCheck('2')) {
+		throw new Error('RowGroup requires DataTables 2 or newer');
 	}
 
 	// User and defaults configuration object
