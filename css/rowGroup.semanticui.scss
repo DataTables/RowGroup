@@ -1,4 +1,4 @@
 
 $table-rowgroup-background: #F9FAFB !default;
 
-@import 'rowGroup.dataTables.scss';
+@use 'rowGroup.dataTables.scss' with ($table-rowgroup-background: $table-rowgroup-background);
