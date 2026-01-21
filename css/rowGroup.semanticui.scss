@@ -1,4 +1,11 @@
+@use 'defaults.scss';
+@use 'shared.scss';
 
-$table-rowgroup-background: #F9FAFB !default;
-
-@use 'rowGroup.dataTables.scss' with ($table-rowgroup-background: $table-rowgroup-background);
+:root {
+	--dtrg-group-level-0_background: #f9fafb;
+	--dtrg-group-level-1_background: #f9fafb;
+	--dtrg-group-level-2_background: #f9fafb;
+	--dtrg-group-level-3_background: #f9fafb;
+	--dtrg-group-level-4_background: #f9fafb;
+	--dtrg-group-level-5_background: #f9fafb;
+}

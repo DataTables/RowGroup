@@ -1,0 +1,39 @@
+
+table.dataTable tr.dtrg-group th {
+	text-align: left;
+}
+
+table.dataTable tr.dtrg-group.dtrg-level-0 th {
+	background-color: var(--dtrg-group-level-0_background);
+	font-weight: bold;
+}
+
+table.dataTable tr.dtrg-group.dtrg-level-1 th {
+	background-color: var(--dtrg-group-level-1_background);
+	font-size: var(--dtrg-group-level-1_font-size);
+	padding: var(--dtrg-group-level-1_padding);
+}
+
+table.dataTable tr.dtrg-group.dtrg-level-2 th {
+	background-color: var(--dtrg-group-level-1_background);
+	font-size: var(--dtrg-group-level-1_font-size);
+	padding: var(--dtrg-group-level-1_padding);
+}
+
+table.dataTable tr.dtrg-group.dtrg-level-3 th {
+	background-color: var(--dtrg-group-level-1_background);
+	font-size: var(--dtrg-group-level-1_font-size);
+	padding: var(--dtrg-group-level-1_padding);
+}
+
+table.dataTable tr.dtrg-group.dtrg-level-4 th {
+	background-color: var(--dtrg-group-level-1_background);
+	font-size: var(--dtrg-group-level-1_font-size);
+	padding: var(--dtrg-group-level-1_padding);
+}
+
+table.dataTable tr.dtrg-group.dtrg-level-5 th {
+	background-color: var(--dtrg-group-level-1_background);
+	font-size: var(--dtrg-group-level-1_font-size);
+	padding: var(--dtrg-group-level-1_padding);
+}

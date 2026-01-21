@@ -1,29 +1,11 @@
+@use 'defaults.scss';
+@use 'shared.scss';
 
-@use 'rowGroup.dataTables.scss';
-
-table.dataTable.table-striped {
-    tr.dtrg-level-0 {
-        background-color: rowGroup.$table-rowgroup-background;
-    }
-
-    tr.dtrg-level-1 {
-        background-color: rowGroup.$table-rowgroup-background-level-1;
-    }
-
-    tr.dtrg-level-2,
-    tr.dtrg-level-3,
-    tr.dtrg-level-4,
-    tr.dtrg-level-5 {
-        background-color: rowGroup.$table-rowgroup-background-level-2;
-    }
-
-    tr.dtrg-level-1
-    tr.dtrg-level-2,
-    tr.dtrg-level-3,
-    tr.dtrg-level-4,
-    tr.dtrg-level-5 {
-        th {
-            background-color: transparent;
-        }
-    }
+:root[data-bs-theme="dark"] {
+	--dtrg-group-level-0_background: rgba(255, 255, 255, 0.1);
+	--dtrg-group-level-1_background: rgba(255, 255, 255, 0.05);
+	--dtrg-group-level-2_background: rgba(255, 255, 255, 0.05);
+	--dtrg-group-level-3_background: rgba(255, 255, 255, 0.05);
+	--dtrg-group-level-4_background: rgba(255, 255, 255, 0.05);
+	--dtrg-group-level-5_background: rgba(255, 255, 255, 0.05);
 }

@@ -1,2 +1,11 @@
+@use 'defaults.scss';
+@use 'shared.scss';
 
-@use 'rowGroup.dataTables.scss';
+:root[data-theme="dark"] {
+	--dtrg-group-level-0_background: rgba(255, 255, 255, 0.1);
+	--dtrg-group-level-1_background: rgba(255, 255, 255, 0.05);
+	--dtrg-group-level-2_background: rgba(255, 255, 255, 0.05);
+	--dtrg-group-level-3_background: rgba(255, 255, 255, 0.05);
+	--dtrg-group-level-4_background: rgba(255, 255, 255, 0.05);
+	--dtrg-group-level-5_background: rgba(255, 255, 255, 0.05);
+}
