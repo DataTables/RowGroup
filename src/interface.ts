@@ -5,119 +5,122 @@
 //   SpryMedia
 //   Matthieu Tabuteau <https://github.com/maixiu>
 
-/// <reference types="jquery" />
-
-import DataTables, {Api, ApiRowMethods} from 'datatables.net';
+import DataTables, { Api, ApiRowsMethods, Dom } from 'datatables.net';
+import RowGroup from './RowGroup';
 
 export default DataTables;
 
-type DataSrc = string | number | Array<number | string>;
-
+export type DataSrc = string | number | Array<number | string>;
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables' types integration
  */
 declare module 'datatables.net' {
-	interface Config {
+	interface Options {
 		/**
 		 * RowGroup extension options
 		 */
-		rowGroup?: boolean | ConfigRowGroup;
+		rowGroup?: boolean | Config;
+	}
+
+	interface Defaults {
+		rowGroup: Defaults;
 	}
 
 	interface Api<T> {
 		/**
 		 * RowGroup methods container
-		 * 
+		 *
 		 * @returns Api for chaining with the additional RowGroup methods
 		 */
 		rowGroup(): ApiRowGroup<T>;
+	}
+
+	interface Context {
+		rowGroup: RowGroup;
 	}
 
 	interface DataTablesStatic {
 		/**
 		 * RowGroup class
 		 */
-		RowGroup: {
-			/**
-			 * Create a new RowGroup instance for the target DataTable
-			 */
-			new (dt: Api<any>, settings: boolean | ConfigRowGroup): DataTablesStatic['RowGroup'];
-
-			/**
-			 * Default configuration values
-			 */
-			defaults: ConfigRowGroup;
-
-			/**
-			 * RowGroup version
-			 */
-			version: string;
-		}
+		RowGroup: typeof RowGroup;
 	}
 }
-
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Options
  */
 
-interface ConfigRowGroup {
+export interface Defaults {
 	/**
 	 * Set the class name to be used for the grouping rows
 	 */
-	className?: string;
+	className: string;
 
 	/**
 	 * Set the data point to use as the grouping data source
 	 */
-	dataSrc?: DataSrc;
+	dataSrc: DataSrc;
 
 	/**
 	 * Text to show for rows which have `null`, `undefined` or empty string group data
-	 * 
+	 *
 	 * @since 1.0.2
 	 */
-	emptyDataGroup?: string;
+	emptyDataGroup: string;
 
 	/**
 	 * Provides the ability to disable row grouping at initialisation
 	 */
-	enable?: boolean;
+	enable: boolean;
 
 	/**
 	 * Set the class name to be used for the grouping end rows
 	 */
-	endClassName?: string;
+	endClassName: string;
 
 	/**
 	 * Provide a function that can be used to control the data shown in the end grouping row
 	 */
-	endRender?: (rows: ApiRowMethods<any>, group: string, level: number) => string|HTMLElement|JQuery;
+	endRender:
+		| null
+		| ((
+				rows: ApiRowsMethods<any>,
+				group: string,
+				level: number
+		  ) => string | HTMLElement | Dom);
 
 	/**
 	 * Set the class name to be used for the start grouping rows
 	 */
-	startClassName?: string;
+	startClassName: string;
 
 	/**
 	 * Provide a function that can be used to control the data shown in the start grouping row
 	 */
-	startRender?: (rows: ApiRowMethods<any>, group: string, level: number) => string|HTMLElement|JQuery;
+	startRender:
+		| null
+		| ((
+				rows: ApiRowsMethods<any>,
+				group: string,
+				level: number
+		  ) => string | HTMLElement | Dom);
 }
 
+export interface Config extends Partial<Defaults> {}
 
 interface ApiRowGroup<T> extends Api<T> {
 	/**
 	 * Get the data source for the row grouping
-	 * 
+	 *
 	 * @returns Data source property
 	 */
 	dataSrc(): DataSrc;
 
 	/**
 	 * Set the data source for the row grouping
-	 * 
+	 *
 	 * @param prop Data source property
 	 * @returns DataTables Api instance
 	 */
@@ -125,14 +128,14 @@ interface ApiRowGroup<T> extends Api<T> {
 
 	/**
 	 * Disable RowGroup's interaction with the table
-	 * 
+	 *
 	 * @returns DataTables API instance
 	 */
 	disable(): Api<T>;
 
 	/**
 	 * Enable or disable RowGroup's interaction with the table
-	 * 
+	 *
 	 * @param enable Either enables or disables RowGroup depending on the value of the flag
 	 * @returns DataTables Api instance
 	 */
@@ -140,8 +143,22 @@ interface ApiRowGroup<T> extends Api<T> {
 
 	/**
 	 * Get the enabled state for RowGroup.
-	 * 
+	 *
 	 * @returns true if enabled, false otherwise
 	 */
 	enabled(): boolean;
+}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Internal
+ */
+
+export interface Settings {
+	dt: Api;
+}
+
+export interface Grouping {
+	dataPoint: string;
+	rows: number[];
+	children?: Grouping[];
 }

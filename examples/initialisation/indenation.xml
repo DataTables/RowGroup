@@ -2,10 +2,11 @@
 <dt-example table-type="html" order="4">
 
 <css lib="datatables rowgroup">
-tr.odd td:first-child,
-tr.even td:first-child {
+<![CDATA[
+table.dataTable > tbody > tr > td:first-child {
     padding-left: 1.5em;
 }
+]]>
 </css>
 <js lib="jquery datatables rowgroup">
 <![CDATA[
