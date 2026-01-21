@@ -1,18 +1,26 @@
 {
-    "compilerOptions": {
-        "target": "ES5",
-        "module": "ES6",
+	"compilerOptions": {
+		"target": "ES5",
+		"module": "ES6",
 		"moduleResolution": "node10",
-        "lib": ["es2017", "es2016", "dom"],
-        "allowUnreachableCode": true,
-        "allowSyntheticDefaultImports": true,
-        "pretty": true,
-        "declaration": true,
+		"lib": ["es2017", "es2016", "dom"],
+		"allowUnreachableCode": true,
+		"allowSyntheticDefaultImports": true,
+		"pretty": true,
+		"declaration": true,
 		"skipLibCheck": true,
 		"outDir": "dist",
-        "types": []
-    },
-    "files": [
-        "src/dataTables.rowGroup.ts"
-    ]
+		"types": []
+	},
+	"files": [
+		"src/dataTables.rowGroup.ts",
+		"src/integrations/rowGroup.dataTables.ts",
+		"src/integrations/rowGroup.bootstrap4.ts",
+		"src/integrations/rowGroup.bootstrap5.ts",
+		"src/integrations/rowGroup.bootstrap.ts",
+		"src/integrations/rowGroup.bulma.ts",
+		"src/integrations/rowGroup.foundation.ts",
+		"src/integrations/rowGroup.jqueryui.ts",
+		"src/integrations/rowGroup.semanticui.ts"
+	]
 }

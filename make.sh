@@ -27,42 +27,8 @@ DT_BUILT="${DT_SRC}/built/DataTables"
 rsync -r css $OUT_DIR
 css_frameworks rowGroup $OUT_DIR/css
 
-# Get the version from the file
-VERSION=$(grep "static version" src/dataTables.rowGroup.ts | perl -nle'print $& if m{\d+\.\d+\.\d+(\-\w*)?}')
-
-# JS - compile and then copy into place
-$DT_SRC/node_modules/typescript/bin/tsc -p ./tsconfig.json
-
-## Remove the import - our wrapper does it for UMD as well as ESM
-sed -i "s#import DataTable from 'datatables.net';##" dist/dataTables.rowGroup.js
-sed -i "s#import DataTable from 'datatables.net';##" dist/RowGroup.js
-
-HEADER="/*! RowGroup $VERSION
- * Copyright (c) SpryMedia Ltd - datatables.net/license
- */
-"
-$DT_SRC/node_modules/rollup/dist/bin/rollup \
-    --banner "$HEADER" \
-    --config rollup.config.mjs
-
-rsync -r dist/dataTables.rowGroup.js $OUT_DIR/js/
-rsync -r src/integrations/rowGroup.*.js $OUT_DIR/js/
-
-js_frameworks rowGroup $OUT_DIR/js "datatables.net-FW datatables.net-rowgroup"
-js_wrap $OUT_DIR/js/dataTables.rowGroup.js "datatables.net"
-
-# Move types across, single file was built by rollup
-if [ -d $OUT_DIR/types ]; then
-	rm -r $OUT_DIR/types		
-fi
-mkdir $OUT_DIR/types
-
-cp dist/types.d.ts $OUT_DIR/types
-cp types/rowGroup*.d.ts $OUT_DIR/types
-
-rm -r dist
-
-
+# Typescript build
+ts_extension RowGroup rowGroup
 
 # Copy and build examples
 rsync -r examples $OUT_DIR
