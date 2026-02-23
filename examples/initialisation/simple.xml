@@ -22,7 +22,9 @@ new DataTable('#example', {
 	order: [[2, 'asc']],
 	rowGroup: {
 		dataSrc: 2
-	}
+	},
+	scrollY: 300,
+	paging: false
 });
 
 ]]>
