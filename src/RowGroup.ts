@@ -391,6 +391,13 @@ export default class RowGroup {
 		) {
 			row = display;
 		}
+		else if (
+			util.is.jquery(display) &&
+			(display as any).length &&
+			(display as any).get(0).nodeName.toLowerCase() === 'tr'
+		) {
+			row = dom.s(display);
+		}
 		else {
 			let cell = dom
 				.c('th')
