@@ -2,20 +2,7 @@
 <dt-example table-type="html" order="4" framework="foundation">
 
 <css lib="datatables rowgroup"/>
-<js lib="jquery datatables rowgroup">
-<![CDATA[
-
-$('#example').DataTable({
-	order: [[2, 'asc']],
-	rowGroup: {
-		dataSrc: 2
-	}
-});
-
-]]>
-</js>
-
-<js-vanilla>
+<js lib="datatables rowgroup">
 <![CDATA[
 
 new DataTable('#example', {
@@ -26,7 +13,7 @@ new DataTable('#example', {
 });
 
 ]]>
-</js-vanilla>
+</js>
 
 <title lib="RowGroup">Foundation</title>
 

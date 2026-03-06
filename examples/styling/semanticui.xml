@@ -2,20 +2,7 @@
 <dt-example table-type="html" order="5" framework="semanticui">
 
 <css lib="datatables rowgroup"/>
-<js lib="jquery semanticui datatables rowgroup">
-<![CDATA[
-
-$('#example').DataTable({
-	order: [[2, 'asc']],
-	rowGroup: {
-		dataSrc: 2
-	}
-});
-
-]]>
-</js>
-
-<js-vanilla>
+<js lib="semanticui datatables rowgroup">
 <![CDATA[
 
 new DataTable('#example', {
@@ -26,7 +13,7 @@ new DataTable('#example', {
 });
 
 ]]>
-</js-vanilla>
+</js>
 
 <title lib="RowGroup">Fomantic-UI (formally Semantic-UI) styling</title>
 

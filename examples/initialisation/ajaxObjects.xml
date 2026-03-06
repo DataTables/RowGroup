@@ -2,29 +2,7 @@
 <dt-example table-type="ajax" order="5">
 
 <css lib="datatables rowgroup"/>
-<js lib="jquery datatables rowgroup">
-<![CDATA[
-
-$('#example').DataTable({
-	ajax: '../../../../examples/ajax/data/objects.txt',
-	columns: [
-		{ data: 'name' },
-		{ data: 'position' },
-		{ data: 'office' },
-		{ data: 'extn' },
-		{ data: 'start_date' },
-		{ data: 'salary' }
-	],
-	order: [[2, 'asc']],
-	rowGroup: {
-		dataSrc: 'office'
-	}
-});
-
-]]>
-</js>
-
-<js-vanilla>
+<js lib="datatables rowgroup">
 <![CDATA[
 
 new DataTable('#example', {
@@ -44,7 +22,7 @@ new DataTable('#example', {
 });
 
 ]]>
-</js-vanilla>
+</js>
 
 <title lib="RowGroup">Ajax with objects</title>
 

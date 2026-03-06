@@ -7,24 +7,7 @@ table.dataTable tr.group-end td {
 	font-weight: normal;
 }
 </css>
-<js lib="jquery datatables rowgroup">
-<![CDATA[
-
-$('#example').DataTable({
-	order: [[3, 'asc']],
-	rowGroup: {
-		dataSrc: function (row) {
-			var base = Math.floor(row[3] / 10);
-
-			return base + '0 - ' + base + '9';
-		}
-	}
-});
-
-]]>
-</js>
-
-<js-vanilla>
+<js lib="datatables rowgroup">
 <![CDATA[
 
 new DataTable('#example', {
@@ -39,7 +22,7 @@ new DataTable('#example', {
 });
 
 ]]>
-</js-vanilla>
+</js>
 
 <title lib="RowGroup">Group with a range of values</title>
 

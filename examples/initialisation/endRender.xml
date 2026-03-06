@@ -2,24 +2,7 @@
 <dt-example table-type="html" order="2">
 
 <css lib="datatables rowgroup"/>
-<js lib="jquery datatables rowgroup">
-<![CDATA[
-
-$('#example').DataTable({
-	order: [[2, 'asc']],
-	rowGroup: {
-		startRender: null,
-		endRender: function (rows, group) {
-			return group + ' (' + rows.count() + ')';
-		},
-		dataSrc: 2
-	}
-});
-
-]]>
-</js>
-
-<js-vanilla>
+<js lib="datatables rowgroup">
 <![CDATA[
 
 new DataTable('#example', {
@@ -34,7 +17,7 @@ new DataTable('#example', {
 });
 
 ]]>
-</js-vanilla>
+</js>
 
 <title lib="RowGroup">End grouping only</title>
 

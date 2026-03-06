@@ -2,21 +2,7 @@
 <dt-example table-type="html" table-class="display nowrap" order="8">
 
 <css lib="datatables responsive rowgroup"/>
-<js lib="jquery datatables responsive rowgroup">
-<![CDATA[
-
-$('#example').DataTable({
-	order: [[2, 'asc']],
-	responsive: true,
-	rowGroup: {
-		dataSrc: 2
-	}
-});
-
-]]>
-</js>
-
-<js-vanilla>
+<js lib="datatables responsive rowgroup">
 <![CDATA[
 
 new DataTable('#example', {
@@ -28,7 +14,7 @@ new DataTable('#example', {
 });
 
 ]]>
-</js-vanilla>
+</js>
 
 <title lib="RowGroup">Integration with Responsive</title>
 

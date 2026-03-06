@@ -8,20 +8,7 @@ table.dataTable > tbody > tr > td:first-child {
 }
 ]]>
 </css>
-<js lib="jquery datatables rowgroup">
-<![CDATA[
-
-$('#example').DataTable({
-	order: [[2, 'asc']],
-	rowGroup: {
-		dataSrc: 2
-	}
-});
-
-]]>
-</js>
-
-<js-vanilla>
+<js lib="datatables rowgroup">
 <![CDATA[
 
 new DataTable('#example', {
@@ -32,7 +19,7 @@ new DataTable('#example', {
 });
 
 ]]>
-</js-vanilla>
+</js>
 
 <title lib="RowGroup">Indenting to aid grouping</title>
 
