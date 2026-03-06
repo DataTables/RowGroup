@@ -1,3 +1,3 @@
-/*! DataTables styling wrapper for RowGroup
- * © SpryMedia Ltd - datatables.net/license
+/*! RowGroup default styling for DataTables
+ * Copyright (c) SpryMedia Ltd - datatables.net/license
  */

@@ -1,10 +1,11 @@
-import DataTable, { Context } from 'datatables.net';
+/*! RowGroup for DataTables
+ * Copyright (c) SpryMedia Ltd - datatables.net/license
+ */
+
+import DataTable, { Context, Dom, util } from 'datatables.net';
 import RowGroup from './RowGroup';
 import './interface';
 import { Config } from './interface';
-
-const dom = DataTable.dom;
-const util = DataTable.util;
 
 DataTable.RowGroup = RowGroup;
 
@@ -51,7 +52,7 @@ DataTable.Api.register('rowGroup().dataSrc()', function (val) {
 
 // Attach a listener to the document which listens for DataTables initialisation
 // events so we can automatically initialise
-dom.s(document).on('preInit.dt.dtrg', function (e, settings: Context, json) {
+Dom.s(document).on('preInit.dt.dtrg', function (e, settings: Context, json) {
 	if (e.namespace !== 'dt') {
 		return;
 	}

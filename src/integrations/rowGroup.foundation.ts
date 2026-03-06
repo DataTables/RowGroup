@@ -1,3 +1,3 @@
-/*! Foundation styling wrapper for RowGroup
- * © SpryMedia Ltd - datatables.net/license
+/*! RowGroup Foundation styling for DataTables
+ * Copyright (c) SpryMedia Ltd - datatables.net/license
  */

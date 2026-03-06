@@ -1,10 +1,3 @@
-// Type definitions for DataTables RowGroup
-//
-// Project: https://datatables.net/extensions/rowgroup/, https://datatables.net
-// Definitions by:
-//   SpryMedia
-//   Matthieu Tabuteau <https://github.com/maixiu>
-
 import DataTables, { Api, ApiRowsMethods, Dom } from 'datatables.net';
 import RowGroup from './RowGroup';
 

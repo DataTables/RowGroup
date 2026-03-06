@@ -1,3 +1,3 @@
-/*! Bootstrap 5 styling wrapper for RowGroup
- * © SpryMedia Ltd - datatables.net/license
+/*! RowGroup Bootstrap 5 styling for DataTables
+ * Copyright (c) SpryMedia Ltd - datatables.net/license
  */

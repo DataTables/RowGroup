@@ -1,3 +1,3 @@
-/*! Bulma styling wrapper for RowGroup
- * © SpryMedia Ltd - datatables.net/license
+/*! RowGroup Bulma styling for DataTables
+ * Copyright (c) SpryMedia Ltd - datatables.net/license
  */

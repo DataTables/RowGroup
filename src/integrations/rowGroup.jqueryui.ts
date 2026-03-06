@@ -1,3 +1,3 @@
-/*! jQuery UI styling wrapper for RowGroup
- * © SpryMedia Ltd - datatables.net/license
+/*! RowGroup jQuery UI styling for DataTables
+ * Copyright (c) SpryMedia Ltd - datatables.net/license
  */

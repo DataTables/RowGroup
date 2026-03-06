@@ -1,12 +1,9 @@
-import DataTable, { Api, Context, Dom } from 'datatables.net';
+import DataTable, { Api, Context, Dom, util } from 'datatables.net';
 import { Config, DataSrc, Defaults, Grouping, Settings } from './interface';
 
 if (!DataTable || !DataTable.versionCheck || !DataTable.versionCheck('3')) {
 	throw new Error('RowGroup requires DataTables 3 or newer');
 }
-
-const dom = DataTable.dom;
-const util = DataTable.util;
 
 export default class RowGroup {
 	static defaults: Defaults = {
@@ -83,7 +80,7 @@ export default class RowGroup {
 
 		this.c.dataSrc = val;
 
-		dom.s(dt.table().node()).trigger('rowgroup-datasrc.dt', false, [
+		Dom.s(dt.table().node()).trigger('rowgroup-datasrc.dt', false, [
 			dt,
 			val
 		]);
@@ -163,7 +160,7 @@ export default class RowGroup {
 		var that = this;
 		var dt = this.s.dt;
 		var hostSettings = dt.settings()[0];
-		var scroller = dom.s(dt.table().container()).find('div.dt-scroll-body');
+		var scroller = Dom.s(dt.table().container()).find('div.dt-scroll-body');
 
 		dt.on('draw.dtrg', function (e, s) {
 			if (that.c.enable && hostSettings === s) {
@@ -211,7 +208,7 @@ export default class RowGroup {
 	 * Adjust column span when column visibility changes
 	 */
 	private _adjustColspan() {
-		let cells = dom
+		let cells = Dom
 			.s(this.s.dt.table().body())
 			.find('tr.' + this.c.className)
 			.find('th:visible, td:visible');
@@ -382,7 +379,7 @@ export default class RowGroup {
 			util.is.element(display) &&
 			display.nodeName.toLowerCase() === 'tr'
 		) {
-			row = dom.s(display);
+			row = Dom.s(display);
 		}
 		else if (
 			util.is.dom(display) &&
@@ -396,10 +393,10 @@ export default class RowGroup {
 			(display as any).length &&
 			(display as any).get(0).nodeName.toLowerCase() === 'tr'
 		) {
-			row = dom.s(display);
+			row = Dom.s(display);
 		}
 		else {
-			let cell = dom
+			let cell = Dom
 				.c('th')
 				.attr('colspan', this._colspan())
 				.attr('scope', 'row');
@@ -411,7 +408,7 @@ export default class RowGroup {
 				cell.append(display);
 			}
 
-			row = dom.c('tr').append(cell);
+			row = Dom.c('tr').append(cell);
 		}
 
 		return row

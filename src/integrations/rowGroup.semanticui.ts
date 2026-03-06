@@ -1,3 +1,3 @@
-/*! Semanic UI styling wrapper for RowGroup
- * © SpryMedia Ltd - datatables.net/license
+/*! RowGroup Fomantic styling for DataTables
+ * Copyright (c) SpryMedia Ltd - datatables.net/license
  */
