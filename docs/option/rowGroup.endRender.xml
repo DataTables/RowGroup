@@ -12,7 +12,7 @@
 
 	<type type="function">
 		<signature>endRender( rows, group, level )</signature>
-		<parameter type="DataTables.Api" name="rows">
+		<parameter type="DataTable.Api" name="rows">
 			A DataTables API instance resulting from `-api rows()` on the rows in this group, displayed on the current page.
 		</parameter>
 		<parameter type="string" name="group">

@@ -24,7 +24,7 @@
 		<parameter name="prop" type="number|string|array">
 			
 		</parameter>
-		<returns type="DataTables.Api">DataTables API instance</returns>
+		<returns type="DataTable.Api">DataTables API instance</returns>
 	</type>
 
 	<description>
