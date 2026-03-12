@@ -208,18 +208,21 @@ export default class RowGroup {
 	 * Adjust column span when column visibility changes
 	 */
 	private _adjustColspan() {
-		let cells = Dom
-			.s(this.s.dt.table().body())
+		Dom.s(this.s.dt.table().body())
 			.find('tr.' + this.c.className)
-			.find('th:visible, td:visible');
+			.each(row => {
+				let cells = Dom.s(row)
+					.find('th, td')
+					.map(cell => (Dom.s(cell).isVisible() ? cell : null));
 
-		// Only perform the adjust if there is a single cell. If there is more
-		// the renderer must have returned multiple cells and it is the
-		// responsibility of the rendering function to get the number of cells
-		// right.
-		if (cells.count() === 1) {
-			cells.attr('colspan', this._colspan());
-		}
+				// Only perform the adjust if there is a single cell. If there
+				// is more the renderer must have returned multiple cells and it
+				// is the responsibility of the rendering function to get the
+				// number of cells right.
+				if (cells.count() === 1) {
+					cells.attr('colspan', this._colspan());
+				}
+			});
 	}
 
 	/**
@@ -230,9 +233,9 @@ export default class RowGroup {
 	}
 
 	/**
-	 * Update function that is called whenever we need to draw the grouping rows.
-	 * This is basically a bootstrap for the self iterative _group and _groupDisplay
-	 * methods
+	 * Update function that is called whenever we need to draw the grouping
+	 * rows. This is basically a bootstrap for the self iterative _group and
+	 * _groupDisplay methods
 	 */
 	private _draw() {
 		var dt = this.s.dt;
@@ -396,8 +399,7 @@ export default class RowGroup {
 			row = Dom.s(display);
 		}
 		else {
-			let cell = Dom
-				.c('th')
+			let cell = Dom.c('th')
 				.attr('colspan', this._colspan())
 				.attr('scope', 'row');
 
