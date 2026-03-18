@@ -155,15 +155,19 @@ $.extend(RowGroup.prototype, {
 	 * @private
 	 */
 	_adjustColspan: function () {
-		let cells = $('tr.' + this.c.className, this.s.dt.table().body())
-			.find('th:visible, td:visible');
+		var that = this;
 
-		// Only perform the adjust if there is a single cell. If there is more the renderer must
-		// have returned multiple cells and it is the responsibility of the rendering function to
-		// get the number of cells right.
-		if (cells.length === 1) {
-			cells.attr('colspan', this._colspan());
-		}
+		$('tr.' + this.c.className, this.s.dt.table().body()).each(function () {
+			var cells = $(this).find('th:visible, td:visible');
+
+			// Only perform the adjust if there is a single cell. If there is more
+			// the renderer must have returned multiple cells and it is the
+			// responsibility of the rendering function to get the number of cells
+			// right.
+			if (cells.length === 1) {
+				cells.attr('colspan', that._colspan());
+			}
+		});
 	},
 
 	/**
