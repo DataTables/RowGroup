@@ -6,7 +6,7 @@
 
 	<type type="function">
 	<name>rowGroup().enabled()</name>
-		<signature>rowGroup().enable()</signature>
+		<signature>rowGroup().enabled()</signature>
 		<description>
 			Get the enabled state for RowGroup.
 		</description>
