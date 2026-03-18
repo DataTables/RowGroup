@@ -1,11 +1,11 @@
-/*! RowGroup 1.6.0
+/*! RowGroup 1.6.0-dev
  * © SpryMedia Ltd - datatables.net/license
  */
 
 /**
  * @summary     RowGroup
  * @description RowGrouping for DataTables
- * @version     1.6.0
+ * @version     1.6.0-dev
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     datatables.net
  * @copyright   SpryMedia Ltd.
@@ -411,7 +411,7 @@ RowGroup.defaults = {
 	}
 };
 
-RowGroup.version = '1.6.0';
+RowGroup.version = '1.6.0-dev';
 
 $.fn.dataTable.RowGroup = RowGroup;
 $.fn.DataTable.RowGroup = RowGroup;
