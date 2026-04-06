@@ -59,7 +59,7 @@ export default class RowGroup {
 		}
 	};
 
-	static version = '1.6.0';
+	static version = '2.0.0-beta.1';
 
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	 * API methods for DataTables API interface
