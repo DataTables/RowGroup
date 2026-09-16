@@ -404,7 +404,7 @@ export default class RowGroup {
 				.attr('scope', 'row');
 
 			if (typeof display === 'string') {
-				cell.html(display);
+				cell.text(display);
 			}
 			else {
 				cell.append(display);
