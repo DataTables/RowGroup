@@ -1,8 +1,8 @@
 import DataTable, { Api, Context, Dom, util } from 'datatables.net';
 import { Config, DataSrc, Defaults, Grouping, Settings } from './interface';
 
-if (!DataTable || !DataTable.versionCheck || !DataTable.versionCheck('3')) {
-	throw new Error('RowGroup requires DataTables 3 or newer');
+if (!DataTable || !DataTable.versionCheck || !DataTable.versionCheck('3.1')) {
+	throw new Error('RowGroup requires DataTables 3.1 or newer');
 }
 
 export default class RowGroup {

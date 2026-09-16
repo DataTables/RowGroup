@@ -52,7 +52,7 @@ DataTable.Api.register('rowGroup().dataSrc()', function (val) {
 
 // Attach a listener to the document which listens for DataTables initialisation
 // events so we can automatically initialise
-Dom.s(document).on('preInit.dt.dtrg', function (e, settings: Context, json) {
+Dom.on('preInit.dt.dtrg', function (e, settings: Context, json) {
 	if (e.namespace !== 'dt') {
 		return;
 	}
