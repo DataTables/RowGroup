@@ -55,7 +55,7 @@ export default class RowGroup {
 		 * @function
 		 */
 		startRender(rows, group, level) {
-			return group;
+			return util.escapeHtml(group);
 		}
 	};
 
