@@ -8,13 +8,14 @@ describe('RowGroup - HTML Security', function() {
 
 	describe('XSS Prevention', function() {
 		dt.html('basic');
-		it('Prevents XSS injection via dataSrc function returning malicious HTML', function() {
+		it('Escapes an <img onerror> payload found in the grouping data cell', function() {
 			table = $('#example').DataTable({
-				order: [[2, 'asc']],
+				data: [
+					['Tiger Nixon', 'System Architect', '<img src=x onerror=alert(1)>', 61, '2011/04/25', '$320,800'],
+					['Garrett Winters', 'Accountant', '<img src=x onerror=alert(1)>', 63, '2011/07/25', '$170,750']
+				],
 				rowGroup: {
-					dataSrc: function(row, type) {
-						return '<img src=x onerror=alert(1)>';
-					}
+					dataSrc: 2
 				}
 			});
 
@@ -26,13 +27,13 @@ describe('RowGroup - HTML Security', function() {
 		});
 
 		dt.html('basic');
-		it('Prevents XSS injection via dataSrc function returning script tag', function() {
+		it('Escapes a <script> tag payload found in the grouping data cell', function() {
 			table = $('#example').DataTable({
-				order: [[2, 'asc']],
+				data: [
+					['Tiger Nixon', 'System Architect', '<script>alert("XSS")</script>', 61, '2011/04/25', '$320,800']
+				],
 				rowGroup: {
-					dataSrc: function(row, type) {
-						return '<script>alert("XSS")</script>';
-					}
+					dataSrc: 2
 				}
 			});
 
@@ -44,13 +45,13 @@ describe('RowGroup - HTML Security', function() {
 		});
 
 		dt.html('basic');
-		it('Prevents XSS via event handlers in default rendering', function() {
+		it('Escapes an event-handler attribute payload found in the grouping data cell', function() {
 			table = $('#example').DataTable({
-				order: [[2, 'asc']],
+				data: [
+					['Tiger Nixon', 'System Architect', '<div onload=alert(1)>Test</div>', 61, '2011/04/25', '$320,800']
+				],
 				rowGroup: {
-					dataSrc: function(row, type) {
-						return '<div onload=alert(1)>Test</div>';
-					}
+					dataSrc: 2
 				}
 			});
 
@@ -122,13 +123,13 @@ describe('RowGroup - HTML Security', function() {
 
 	describe('Default Rendering Safety', function() {
 		dt.html('basic');
-		it('Escapes HTML entities in normal group names', function() {
+		it('Escapes HTML entities in a normal-looking grouping data cell', function() {
 			table = $('#example').DataTable({
-				order: [[2, 'asc']],
+				data: [
+					['Tiger Nixon', 'System Architect', 'A & B <Company>', 61, '2011/04/25', '$320,800']
+				],
 				rowGroup: {
-					dataSrc: function(row, type) {
-						return 'A & B <Company>';
-					}
+					dataSrc: 2
 				}
 			});
 
@@ -138,13 +139,13 @@ describe('RowGroup - HTML Security', function() {
 		});
 
 		dt.html('basic');
-		it('Handles null and undefined group values safely', function() {
+		it('Handles a null grouping data cell safely', function() {
 			table = $('#example').DataTable({
-				order: [[2, 'asc']],
+				data: [
+					['Tiger Nixon', 'System Architect', null, 61, '2011/04/25', '$320,800']
+				],
 				rowGroup: {
-					dataSrc: function(row, type) {
-						return null;
-					}
+					dataSrc: 2
 				}
 			});
 

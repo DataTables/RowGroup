@@ -55,7 +55,7 @@ export default class RowGroup {
 		 * @function
 		 */
 		startRender(rows, group, level) {
-			return this._escapeHtml(group);
+			return util.escapeHtml(group);
 		}
 	};
 
@@ -417,23 +417,5 @@ export default class RowGroup {
 			.classAdd(this.c.className)
 			.classAdd(className)
 			.classAdd('dtrg-level-' + level);
-	}
-
-	/**
-	 * Escape HTML special characters to prevent XSS in default rendering
-	 * @param str String to escape
-	 * @returns Escaped string safe for HTML insertion
-	 */
-	private _escapeHtml(str: string): string {
-		if (str === null || str === undefined) {
-			return '';
-		}
-
-		return String(str)
-			.replace(/&/g, '&amp;')
-			.replace(/</g, '&lt;')
-			.replace(/>/g, '&gt;')
-			.replace(/"/g, '&quot;')
-			.replace(/'/g, '&#39;');
 	}
 }
