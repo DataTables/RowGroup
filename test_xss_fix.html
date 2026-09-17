@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RowGroup XSS Fix Verification</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowgroup/1.4.0/css/rowGroup.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="js/dataTables.rowGroup.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background: #f9f9f9;
+        }
+        .test-section h2 {
+            margin-top: 0;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: white;
+            border-left: 4px solid #28a745;
+        }
+        .result.fail {
+            border-left-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <h1>RowGroup XSS Fix Verification Tests</h1>
+    <p>This page tests that the XSS vulnerability is fixed while maintaining compatibility with custom renderers.</p>
+
+    <div class="test-section">
+        <h2>Test 1: XSS Prevention (Default Renderer)</h2>
+        <p>The default renderer should escape HTML, preventing XSS attacks.</p>
+        <table id="table1" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Office</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+        </table>
+        <div id="result1" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 2: Custom HTML Rendering (Custom Renderer)</h2>
+        <p>Custom renderers that intentionally return HTML should still work.</p>
+        <table id="table2" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Office</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+        </table>
+        <div id="result2" class="result"></div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Test data
+            var testData = [
+                ["Alice", "Developer", "Edinburgh", "$80,000"],
+                ["Bob", "Designer", "Edinburgh", "$70,000"],
+                ["Charlie", "Manager", "London", "$90,000"]
+            ];
+
+            // Test 1: XSS Prevention with default renderer
+            var table1 = $('#table1').DataTable({
+                data: testData,
+                rowGroup: {
+                    dataSrc: function(row) {
+                        // Return XSS payload
+                        return '<img src=x onerror=alert("XSS")>';
+                    }
+                }
+            });
+
+            // Verify Test 1
+            setTimeout(function() {
+                var groupRow = $('#table1 tbody tr:eq(0) th');
+                var text = groupRow.text();
+                var hasImgTag = groupRow.find('img').length > 0;
+
+                if (text === '<img src=x onerror=alert("XSS")>' && !hasImgTag) {
+                    $('#result1').html('<strong>✓ PASS:</strong> HTML was properly escaped. No XSS vulnerability detected.');
+                } else {
+                    $('#result1').addClass('fail').html('<strong>✗ FAIL:</strong> HTML was not escaped. XSS vulnerability exists!');
+                }
+            }, 100);
+
+            // Test 2: Custom HTML rendering compatibility
+            var table2 = $('#table2').DataTable({
+                data: testData,
+                rowGroup: {
+                    dataSrc: 2, // Office column
+                    startRender: function(rows, group) {
+                        // Intentionally return HTML
+                        return '<strong style="color: #0066cc;">📍 ' + group + '</strong> <em>(' + rows.count() + ' employees)</em>';
+                    }
+                }
+            });
+
+            // Verify Test 2
+            setTimeout(function() {
+                var groupRow = $('#table2 tbody tr:eq(0) th');
+                var hasStrong = groupRow.find('strong').length > 0;
+                var hasEm = groupRow.find('em').length > 0;
+
+                if (hasStrong && hasEm) {
+                    $('#result2').html('<strong>✓ PASS:</strong> Custom HTML rendering works correctly. HTML elements were rendered.');
+                } else {
+                    $('#result2').addClass('fail').html('<strong>✗ FAIL:</strong> Custom HTML rendering broken. HTML elements were not rendered.');
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>
